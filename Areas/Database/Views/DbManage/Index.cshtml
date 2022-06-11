@@ -7,11 +7,9 @@
 
 @{
     ViewData["Title"] = "Thông tin Db";
-    Layout =  "/Views/Shared/_LayoutAdmin.cshtml";
     var connect = dbContext.Database.GetDbConnection();
     var dbname = connect.Database;
     var can_connect = dbContext.Database.CanConnect();
-    
 
 }
 
@@ -60,12 +58,4 @@
     <a class = "btn btn-danger" asp-action="SeedData">Seed Data</a>
 
 
-}
-@{
-    _AdminSidebarService.SetActive("DbManage", "Index", "Database");
-}
-
-@section Sidebar
-{
-    @Html.Raw(_AdminSidebarService.renderHtml())
 }

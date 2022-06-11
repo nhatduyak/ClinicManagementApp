@@ -1,8 +1,5 @@
-@using ClinicManagement.Menu
-@inject AdminSidebarService _AdminSidebarService
 @{
     ViewData["Title"] = "Xóa Db";
-    Layout =  "/Views/Shared/_LayoutAdmin.cshtml";
 }
 
 <h1>@ViewData["Title"]</h1>
@@ -20,12 +17,3 @@
 
 
 </form>
-
-@{
-    _AdminSidebarService.SetActive("DbManage", "Index", "Database");
-}
-
-@section Sidebar
-{
-    @Html.Raw(_AdminSidebarService.renderHtml())
-}
