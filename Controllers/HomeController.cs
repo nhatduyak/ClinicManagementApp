@@ -9,11 +9,10 @@ using ClinicManagement.Models;
 
 namespace ClinicManagement.Controllers
 {
-    public class HomeController : Controller
+        public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
-             [TempData]
+            [TempData]
              public string StatusMessage{set;get;}
 
         public HomeController(ILogger<HomeController> logger)
@@ -21,6 +20,7 @@ namespace ClinicManagement.Controllers
             _logger = logger;
         }
 
+        public string HiHome() => "Xin chao cac ban, toi la HiHome";
         public IActionResult Index()
         {
             return View();
