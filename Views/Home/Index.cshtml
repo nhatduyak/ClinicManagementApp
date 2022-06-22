@@ -1,13 +1,9 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
+    Layout="_LayoutAdmin";
 }
 <partial name="_StatusMessage"/>
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <h1 class="text-center"><i class="fas fa-comment-dollar text-success"></i> Transaction History</h1>
 
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
 <div>
     @* <a onclick="showInPopup('@Url.Action("AddOrEdit","Transaction",null,Context.Request.Scheme)','New Transaction')" class="btn fas fa btn-success text-white"><i class="fas fa-random"></i> New Transaction</a> *@
 </div>

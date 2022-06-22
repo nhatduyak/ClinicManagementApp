@@ -113,7 +113,6 @@ services.AddOptions();
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-             app.UseStaticFiles();
 
             // // /contents/1.jpg => Uploads/1.jpg
             // app.UseStaticFiles(new StaticFileOptions() {

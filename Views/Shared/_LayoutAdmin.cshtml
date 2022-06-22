@@ -39,6 +39,16 @@
 
 </head>
 
+<style>
+    @* .bg-login-image{
+        background-image: url("../images/bg-login.jpg");
+    } *@
+    .bg-gradient-primary{
+        background-color: #9ab4be;
+        background-image: linear-gradient(180deg,#495057 100%,#5c899a 10%);;
+    }
+</style>
+
 <body id="page-top">
 
     <!-- Page Wrapper -->
@@ -48,10 +58,10 @@
 
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" asp-controller="Home" asp-action="Index">
-                <div class="sidebar-brand-icon rotate-n-15">
-                    <i class="fas fa-laugh-wink"></i>
+                <div class="sidebar-brand-icon rotate-n-5">
+                <i class="fas fa-procedures"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3">AppMvc.Net</div>
+                <div class="sidebar-brand-text mx-3">Clinic</div>
             </a>
 
 
@@ -80,7 +90,7 @@
                     </button>
 
                     
-                   <h1>@ViewData["Title"]</h1>
+                   <h3>@ViewData["Title"]</h3>
 
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
@@ -91,8 +101,8 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">
-                                    <i class="far fa-user"></i>
+                                <span class="mr-2 d-none d-lg-inline text-gray-800">
+                                    <i class="fas fa-user-md"></i>
                                     @UserManager.GetUserName(User)!
                                 </span>
                                 
