@@ -25,12 +25,12 @@ namespace ClinicManagement.Models
             [Display(Name ="Điện thoại")]
         // [Required(ErrorMessage ="phải nhập {0}")]
         [Phone(ErrorMessage ="Điện thoại không hợp lệ")]
-        public string? Phone { get; set; }
+        public string Phone { get; set; }
         [Display(Name ="Email")]
         // [Required(ErrorMessage ="phải nhập {0}")]
         // [StringLength(60,ErrorMessage ="{0} phải từ {2} đến {1} ký tự",MinimumLength =3)]
         [EmailAddress(ErrorMessage ="Địa chỉ Email không hợp lệ")]
-        public string? Email { get; set; }
+        public string Email { get; set; }
 
         [Display(Name ="Ngày Đăng ký")]
         [DataType(DataType.Date)]
