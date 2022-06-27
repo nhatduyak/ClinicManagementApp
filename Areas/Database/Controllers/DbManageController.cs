@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using ClinicManagement.Data;
 using ClinicManagement.Models;
 using Bogus;
-using ClinicManagement.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -21,11 +20,14 @@ namespace ClinicManagement.Areas.Database.Controllers
         private readonly UserManager<AppUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
 
-        public DbManageController(ClinicManagementDbContext dbContext, UserManager<AppUser> userManager, RoleManager<IdentityRole> roleManager)
+        private readonly SignInManager<AppUser> _signinmanager;
+
+        public DbManageController(ClinicManagementDbContext dbContext, UserManager<AppUser> userManager, RoleManager<IdentityRole> roleManager,SignInManager<AppUser> signInManager)
         {
             _dbContext = dbContext;
             _userManager = userManager;
             _roleManager = roleManager;
+            _signinmanager=signInManager;
         }
 
     public IActionResult Index()
@@ -34,6 +36,7 @@ namespace ClinicManagement.Areas.Database.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles=RoleName.Administrator)]
         public IActionResult DeleteDb()
         {
             return View();
@@ -43,6 +46,7 @@ namespace ClinicManagement.Areas.Database.Controllers
         public string StatusMessage { get; set;}
 
         [HttpPost]
+        [Authorize(Roles=RoleName.Administrator)]
         public async Task<IActionResult> DeleteDbAsync()
         {
             var success = await _dbContext.Database.EnsureDeletedAsync();
@@ -52,6 +56,7 @@ namespace ClinicManagement.Areas.Database.Controllers
             return RedirectToAction(nameof(Index));
         }
         [HttpPost]
+        // [Authorize(Roles=RoleName.Administrator)]
         public async Task<IActionResult> Migrate()
         {
             await _dbContext.Database.MigrateAsync();
@@ -82,18 +87,34 @@ namespace ClinicManagement.Areas.Database.Controllers
                 useradmin = new AppUser()
                 {
                     UserName = "admin",
-                    Email = "admin@example.com",
+                    Email = "npnhatduy@gmail.com",
                     EmailConfirmed = true,
                 };
 
-                await _userManager.CreateAsync(useradmin, "admin123");
+                await _userManager.CreateAsync(useradmin, "Duy123456@");
                 await _userManager.AddToRoleAsync(useradmin, RoleName.Administrator);
+
+                await _signinmanager.SignInAsync(useradmin,false);
+                return RedirectToAction(nameof(SeedDataAsync));
+                
+            }
+            else
+            {
+                var user=await _userManager.GetUserAsync(this.User);
+                if(user==null)
+                {
+                    return this.Forbid();
+                }
+
+                var roles=await _userManager.GetRolesAsync(user);
+                if(!roles.Any(r=>r==RoleName.Administrator))
+                {
+                    return Forbid();
+                }
                 
             }
             StatusMessage = "Vừa seed Database";
             return RedirectToAction("Index");
-
-
         }
     }
 }

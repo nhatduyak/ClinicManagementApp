@@ -1,4 +1,6 @@
-﻿@model IndexViewModel
+﻿@using ClinicManagement.Menu
+@inject AdminSidebarService _AdminSidebarService
+@model IndexViewModel
 @{
     ViewData["Title"] = "Quản lý tài khoản của bạn";
 }
@@ -132,3 +134,7 @@
         </dd>
     </dl>
 </div>
+@section Sidebar
+{
+    @Html.Raw(_AdminSidebarService.renderHtml())
+}

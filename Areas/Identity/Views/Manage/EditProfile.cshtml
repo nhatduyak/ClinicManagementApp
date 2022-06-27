@@ -1,3 +1,5 @@
+@using ClinicManagement.Menu
+@inject AdminSidebarService _AdminSidebarService
 @model EditExtraProfileModel
 @{
     ViewData["Title"] = "Hồ sơ cá nhân";
@@ -42,6 +44,11 @@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+}
+
+@section Sidebar
+{
+    @Html.Raw(_AdminSidebarService.renderHtml())
 }
 
 

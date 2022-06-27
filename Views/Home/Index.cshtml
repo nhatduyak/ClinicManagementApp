@@ -1,4 +1,6 @@
-﻿@{
+﻿@using ClinicManagement.Menu
+@inject AdminSidebarService _AdminSidebarService
+@{
     ViewData["Title"] = "Home Page";
     Layout="_LayoutAdmin";
 }
@@ -7,3 +9,8 @@
 <div>
     @* <a onclick="showInPopup('@Url.Action("AddOrEdit","Transaction",null,Context.Request.Scheme)','New Transaction')" class="btn fas fa btn-success text-white"><i class="fas fa-random"></i> New Transaction</a> *@
 </div>
+
+@section Sidebar
+{
+    @Html.Raw(_AdminSidebarService.renderHtml())
+}

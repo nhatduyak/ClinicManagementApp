@@ -26,6 +26,7 @@ namespace ClinicManagement.Controllers
         public string HiHome() => "Xin chao cac ban, toi la HiHome";
         public IActionResult Index()
         {
+            
             return View();
         }
 
