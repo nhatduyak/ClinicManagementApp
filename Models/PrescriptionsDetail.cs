@@ -27,5 +27,7 @@ namespace ClinicManagement.Models
 
         [Display(Name ="Uống Khi nào?")]
         public string When_To_Take{get;set;}
+
+        public bool isdeleted;
     }
 }

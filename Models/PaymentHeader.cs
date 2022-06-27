@@ -28,7 +28,7 @@ namespace ClinicManagement.Models
 
       public ICollection<PaymentDetail> PaymentDetail { get; set; }
 
-      
+      public bool isdeleted;
 
     }
 }

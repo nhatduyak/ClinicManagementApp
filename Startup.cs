@@ -4,8 +4,10 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using ClinicManagement.Data;
+using ClinicManagement.Interfaces;
 using ClinicManagement.Menu;
 using ClinicManagement.Models;
+using ClinicManagement.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -94,7 +96,7 @@ services.AddOptions();
 
                             services.AddTransient<IActionContextAccessor, ActionContextAccessor>();
                 services.AddTransient<AdminSidebarService>();
-
+                services.AddScoped<IUnit, UnitRepository>();            
 
         }
 

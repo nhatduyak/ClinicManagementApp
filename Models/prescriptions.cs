@@ -36,7 +36,7 @@ namespace ClinicManagement.Models
 
 
        public List<PrescriptionsDetail> PrescriptionsDetail{get;set;}
-
+      public bool isdeleted;
         
     }
 }

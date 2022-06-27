@@ -25,5 +25,7 @@ namespace ClinicManagement.Models
          [Display(Name ="Giá bán")]
         [DisplayFormat(DataFormatString ="{0:0.000}",ApplyFormatInEditMode =true)]
         public decimal? SellPrice{get;set;}      
+
+        public bool isdeleted;
     }
 }
