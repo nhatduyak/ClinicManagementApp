@@ -61,12 +61,10 @@ namespace ClinicManagement.Models
         public DateTime? DateModify{get;set;}  
 
         public string UserID{get;set;}
-        [ForeignKey("UserCreate")]
-        public AppUser UserCreate{get;set;}
+       
 
         public string UserIDModify{get;set;}
-        [ForeignKey("UserIDModify")]
-        public AppUser UserModify{get;set;}
+       
 
     }
 }

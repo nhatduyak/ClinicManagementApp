@@ -13,7 +13,9 @@ namespace ClinicManagement.Models
 
         public int prescriptionsID{get;set;}
         [ForeignKey("PrescriptionsID")]
-        public prescriptions Prescriptions{get;set;}
+        public prescriptions prescriptionsmaster{get;set;}
+
+        
 
         [Display(Name ="Số ngày Uống")]
 
@@ -25,8 +27,5 @@ namespace ClinicManagement.Models
 
         [Display(Name ="Uống Khi nào?")]
         public string When_To_Take{get;set;}
-
-
-
     }
 }

@@ -7,8 +7,9 @@ namespace ClinicManagement.Models
 {
     public class AppUser : IdentityUser
     {
-        [Display(Name ="Doctor")]
-          public int DoctorID { get; set; }
+          public int? DoctorID { get; set; }
+          [ForeignKey("DoctorID")]
+          public Doctor Doctor{get;set;}
 
         //   // [Required]       
         //   [DataType(DataType.Date)]

@@ -44,7 +44,9 @@ namespace ClinicManagement.Models
                     enrity.HasIndex(c=>c.Code)
                                     .IsUnique();
                 });
-            }
+
+             
+        }
         }
 
         public DbSet<Gender> Genders{get;set;}

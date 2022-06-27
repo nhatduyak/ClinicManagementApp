@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -32,6 +33,10 @@ namespace ClinicManagement.Models
          [Display(Name ="Ghi chú")]
         [StringLength(200,ErrorMessage ="{0} phải từ 0 đến {1} ký tự")]
         public string Note { get; set; }
+
+
+       public List<PrescriptionsDetail> PrescriptionsDetail{get;set;}
+
         
     }
 }
