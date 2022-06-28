@@ -1,9 +1,15 @@
+@using ClinicManagement.Menu
+@inject AdminSidebarService _AdminSidebarService
 @model ClinicManagement.Models.Unit
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Chỉnh sửa đơn vị";
 }
+
+<partial name="_StatusMessage" />
+
 @* 
+
 <h1>Edit</h1>
 
 <h4>Unit</h4>
@@ -39,9 +45,9 @@
     <a asp-action="Index">Back to List</a>
 </div>
  *@
-
+@* 
 <h4>Edit - Unit</h4>
-<hr />
+<hr /> *@
 
 <div class="row">
     <div class="col-md-4">
@@ -73,4 +79,8 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 
+}
+@section Sidebar
+{
+    @Html.Raw(_AdminSidebarService.renderHtml())
 }

@@ -1,7 +1,9 @@
+@using ClinicManagement.Menu
+@inject AdminSidebarService _AdminSidebarService
 @model ClinicManagement.Models.Unit
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Tạo mới đơn vị";
 }
 
 @* <h1>Create</h1>
@@ -40,8 +42,10 @@
  *@
 
 
-<h1>Unit - Create</h1>
-<hr />
+@* <h1>Unit - Create</h1>
+<hr /> *@
+<partial name="_StatusMessage" />
+
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
@@ -72,4 +76,8 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+@section Sidebar
+{
+    @Html.Raw(_AdminSidebarService.renderHtml())
 }

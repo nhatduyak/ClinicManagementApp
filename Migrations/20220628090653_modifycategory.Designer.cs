@@ -4,14 +4,16 @@ using ClinicManagement.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ClinicManagement.Migrations
 {
     [DbContext(typeof(ClinicManagementDbContext))]
-    partial class ClinicManagementDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220628090653_modifycategory")]
+    partial class modifycategory
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -23,6 +23,7 @@ namespace ClinicManagement.Models
         public int Quantity{set;get;}
 
          [Display(Name ="Giá bán")]
+         [Column(TypeName ="smallmoney")]
         [DisplayFormat(DataFormatString ="{0:0.000}",ApplyFormatInEditMode =true)]
         public decimal? SellPrice{get;set;}      
 

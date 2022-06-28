@@ -29,11 +29,13 @@ namespace ClinicManagement.Models
         public Unit Units{get;set;}
 
         [Display(Name ="Đơn giá")]
+        [Column(TypeName ="smallmoney")]
         [DisplayFormat(DataFormatString ="{0:0.000}",ApplyFormatInEditMode =true)]
         
         public decimal? UnitPrice{get;set;}
 
         [Display(Name ="Giá bán")]
+        [Column(TypeName ="smallmoney")]
         [DisplayFormat(DataFormatString ="{0:0.000}",ApplyFormatInEditMode =true)]
         public decimal? SellPrice{get;set;}      
         [Display(Name ="Số lượng")]
@@ -45,10 +47,11 @@ namespace ClinicManagement.Models
 
           [Display(Name ="Đơn giá cũ")]
         [DisplayFormat(DataFormatString ="{0:0.000}",ApplyFormatInEditMode =true)]
-        
+        [Column(TypeName ="smallmoney")]
         public decimal? OldUnitPrice{get;set;}
 
         [Display(Name ="Giá bán cũ")]
+        [Column(TypeName ="smallmoney")]
         [DisplayFormat(DataFormatString ="{0:0.000}",ApplyFormatInEditMode =true)]
         public decimal? OldSellPrice{get;set;}    
 

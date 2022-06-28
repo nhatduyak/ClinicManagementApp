@@ -96,7 +96,9 @@ services.AddOptions();
 
                             services.AddTransient<IActionContextAccessor, ActionContextAccessor>();
                 services.AddTransient<AdminSidebarService>();
-                services.AddScoped<IUnit, UnitRepository>();            
+                services.AddScoped<IUnit, UnitRepository>();   
+                services.AddScoped<ICategory, CategoryRepository>();            
+         
 
         }
 

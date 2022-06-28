@@ -15,7 +15,8 @@ namespace ClinicManagement.Controllers
     {
         //private readonly ClinicManagementDbContext _context;
 
-          
+           [TempData]
+        public string StatusMessage { get; set;}
         private readonly IUnit _unitRepo;
 
         public UnitController(IUnit unitrepo)
@@ -68,11 +69,10 @@ namespace ClinicManagement.Controllers
             string errMessage = "";
             try
             {
-                if (unit.Description.Length < 4 || unit.Description == null)               
-                    errMessage = "Unit Description Must be atleast 4 Characters";
+               
 
                 if (_unitRepo.IsUnitNameExists(unit.Name) == true)
-                    errMessage = errMessage + " " + " Unit Name " + unit.Name +" Exists Already";
+                    errMessage = errMessage + " " + " tên đơn vị" + unit.Name +" đã tồn tại";
 
                 if (errMessage == "")
                 {
@@ -86,13 +86,13 @@ namespace ClinicManagement.Controllers
             }
             if (bolret == false)
             {
-                TempData["ErrorMessage"] = errMessage;
+                StatusMessage = errMessage;
                 ModelState.AddModelError("", errMessage);
                 return View(unit);
             }
             else
             {
-                TempData["SuccessMessage"] = "Unit " + unit.Name + " Created Successfully";
+                StatusMessage= "Đơn vị " + unit.Name + " tọa thành công";
                 return RedirectToAction(nameof(Index));
             }
         }
@@ -114,16 +114,14 @@ namespace ClinicManagement.Controllers
 
             try
             {
-                if (unit.Description.Length < 4 || unit.Description == null)                
-                   errMessage = "Unit Description Must be atleast 4 Characters";
-
+                
                 if (_unitRepo.IsUnitNameExists(unit.Name, unit.ID) == true)
-                    errMessage = errMessage + "Unit Name " + unit.Name + " Already Exists";
+                    errMessage = errMessage + "Tên đơn vị " + unit.Name + " đã tồn tại";
 
                 if (errMessage == "")
                 {
                     unit = _unitRepo.Edit(unit);
-                    TempData["SuccessMessage"] = unit.Name + ", Unit Saved Successfully";
+                    StatusMessage= unit.Name + ", đơn vị lưu thành công";
                     bolret = true;
                 }
             }
@@ -141,7 +139,7 @@ namespace ClinicManagement.Controllers
           
             if(bolret==false)
             {
-                TempData["ErrorMessage"] = errMessage;
+                StatusMessage = errMessage;
                 ModelState.AddModelError("", errMessage);
                 return View(unit);
             }
@@ -168,7 +166,7 @@ namespace ClinicManagement.Controllers
             catch(Exception ex)
             {
                 string errMessage = ex.Message;
-                TempData["ErrorMessage"] = errMessage;
+                StatusMessage = errMessage;
                 ModelState.AddModelError("", errMessage);
                 return View(unit);
             }          
@@ -177,7 +175,7 @@ namespace ClinicManagement.Controllers
             if (TempData["CurrentPage"] != null)
                 currentPage = (int)TempData["CurrentPage"];
 
-            TempData["SuccessMessage"] = "Unit " + unit.Name + " Deleted Successfully";
+            StatusMessage = "đơn vị " + unit.Name + " xóa thành công";
             return RedirectToAction(nameof(Index), new { pg = currentPage });
 
 

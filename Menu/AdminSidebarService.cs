@@ -17,55 +17,72 @@ namespace ClinicManagement.Menu {
             // Khoi tao cac muc sidebar
 
             Items.Add(new SidebarItem() { Type = SidebarItemType.Divider});
-            Items.Add(new SidebarItem() { Type = SidebarItemType.Heading, Title = "Quản lý chung"});
+            Items.Add(new SidebarItem() { Type = SidebarItemType.Heading, Title = "Quản lý Phòng khám"});
         
             Items.Add(new SidebarItem() { 
                     Type = SidebarItemType.NavItem,
                     Controller = "DbManage",
                     Action = "Index", 
                     Area = "Database",
-                    Title = "Quản lý Database",
-                    AwesomeIcon = "fas fa-database"
+                    Title = "thông tin Bệnh nhân",
+                    AwesomeIcon = "fas fa-user-injured"
                 });
             Items.Add(new SidebarItem() { 
                     Type = SidebarItemType.NavItem,
                     Controller = "Contact",
                     Action = "Index", 
                     Area = "Contact",
-                    Title = "Quản lý liên hệ",
+                    Title = "Thông tin Bác sĩ",
                     AwesomeIcon = "far fa-address-card"
                 });
-            Items.Add(new SidebarItem() { Type = SidebarItemType.Divider});
-
-            Items.Add(new SidebarItem() { 
+                   Items.Add(new SidebarItem() { 
                     Type = SidebarItemType.NavItem,
-                    Title = "Phân quyền & thành viên",
-                    AwesomeIcon = "far fa-folder",
-                    collapseID = "role",
-                    Items = new List<SidebarItem>() {
-                        new SidebarItem() { 
-                                Type = SidebarItemType.NavItem,
-                                Controller = "Role",
-                                Action = "Index", 
-                                Area = "Identity",
-                                Title = "Các vai trò (role)"                        
-                        },
-                         new SidebarItem() { 
-                                Type = SidebarItemType.NavItem,
-                                Controller = "Role",
-                                Action = "Create", 
-                                Area = "Identity",
-                                Title = "Tạo role mới"                        
-                        },
-                        new SidebarItem() { 
-                                Type = SidebarItemType.NavItem,
-                                Controller = "User",
-                                Action = "Index", 
-                                Area = "Identity",
-                                Title = "Danh sách thành viên"                        
-                        },
-                    },
+                    Controller = "Contact",
+                    Action = "Index", 
+                    Area = "Contact",
+                    Title = "Quản lý đơn thuốc",
+                    AwesomeIcon = "fas fa-file-medical-alt"
                 });
+            Items.Add(new SidebarItem() { Type = SidebarItemType.Divider});
+            Items.Add(new SidebarItem() { Type = SidebarItemType.Heading, Title = "Quản lý Thuốc"});
+            Items.Add(new SidebarItem() { 
+                                Type = SidebarItemType.NavItem,
+                                Controller = "DbManage",
+                                Action = "Index", 
+                                Area = "Database",
+                                Title = "Quản lý Thuốc",
+                                AwesomeIcon = "fas fa-capsules"
+                            });
+             Items.Add(new SidebarItem() { 
+                                Type = SidebarItemType.NavItem,
+                                Controller = "Unit",
+                                Action = "Index", 
+                                Title = "Quản lý đơn vị",
+                                AwesomeIcon = "fas fa-sort-amount-down-alt"
+                            });               
+            Items.Add(new SidebarItem() { 
+                                Type = SidebarItemType.NavItem,
+                                Controller = "Category",
+                                Action = "Index", 
+                                Title = "Danh mục thuốc",
+                                AwesomeIcon = "fas fa-list"
+                            });               
+            Items.Add(new SidebarItem() { 
+                                Type = SidebarItemType.NavItem,
+                                Controller = "DbManage",
+                                Action = "Index", 
+                                Area = "Database",
+                                Title = "Nhà sản xuất",
+                                AwesomeIcon = "fas fa-shipping-fast"
+                            });   
+            Items.Add(new SidebarItem() { 
+                                Type = SidebarItemType.NavItem,
+                                Controller = "DbManage",
+                                Action = "Index", 
+                                Area = "Database",
+                                Title = "Lịch sử thuốc",
+                                AwesomeIcon = "fas fa-glasses"
+                            });                   
                 Items.Add(new SidebarItem() { Type = SidebarItemType.Divider});
                 
                 Items.Add(new SidebarItem() { 
@@ -107,38 +124,31 @@ namespace ClinicManagement.Menu {
                 Items.Add(new SidebarItem() { Type = SidebarItemType.Divider});
                 Items.Add(new SidebarItem() { 
                     Type = SidebarItemType.NavItem,
-                    Title = "Quản lý sản phẩm",
+                    Title = "Phân quyền & thành viên",
                     AwesomeIcon = "far fa-folder",
-                    collapseID = "product",
+                    collapseID = "role",
                     Items = new List<SidebarItem>() {
                         new SidebarItem() { 
                                 Type = SidebarItemType.NavItem,
-                                Controller = "CategoryProduct",
+                                Controller = "Role",
                                 Action = "Index", 
-                                Area = "Product",
-                                Title = "Các chuyên mục"                        
+                                Area = "Identity",
+                                Title = "Các vai trò (role)"                        
                         },
                          new SidebarItem() { 
                                 Type = SidebarItemType.NavItem,
-                                Controller = "CategoryProduct",
+                                Controller = "Role",
                                 Action = "Create", 
-                                Area = "Product",
-                                Title = "Tạo chuyên mục"                        
-                        },   
+                                Area = "Identity",
+                                Title = "Tạo role mới"                        
+                        },
                         new SidebarItem() { 
                                 Type = SidebarItemType.NavItem,
-                                Controller = "ProductManage",
+                                Controller = "User",
                                 Action = "Index", 
-                                Area = "Product",
-                                Title = "Các sản phẩm"                        
-                        }, 
-                        new SidebarItem() { 
-                                Type = SidebarItemType.NavItem,
-                                Controller = "ProductManage",
-                                Action = "Create", 
-                                Area = "Product",
-                                Title = "Tạo sản phẩm"                        
-                        },                                   
+                                Area = "Identity",
+                                Title = "Danh sách thành viên"                        
+                        },
                     },
                 });
 

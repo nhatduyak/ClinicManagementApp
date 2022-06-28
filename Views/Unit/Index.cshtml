@@ -3,7 +3,7 @@
 @model IEnumerable<ClinicManagement.Models.Unit>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Danh sách đơn vị";
      SortModel sortModel = (SortModel)ViewData["sortModel"];
 
     PagerModel pager = ViewBag.Pager;
@@ -51,14 +51,15 @@
     </tbody>
 </table> *@
 
+<partial name="_StatusMessage" />
 
 <div class="container-fluid btn-group">
-    <div class="col-10">
+    @* <div class="col-10">
         <h3>@ViewData["Title"]</h3>
-    </div>
-    <div class="col-2 justify-content-end">
+    </div> *@
+    <div >
         <p>
-            <a asp-action="Create" class="btn btn-success">Create New</a>
+            <a asp-action="Create" class="btn btn-success"><i class="fas fa-plus"></i></a>
         </p>
     </div>
 </div>
