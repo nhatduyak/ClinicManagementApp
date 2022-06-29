@@ -94,12 +94,12 @@ namespace ClinicManagement.Repositories
                 else
                     medicines = medicines.OrderByDescending(n => n.Name).ToList();
             }
-            else if(SortProperty.ToLower()=="description")
+            else if(SortProperty.ToLower()=="Category")
             {
                 if (sortOrder == SortOrder.Ascending)
-                    medicines = medicines.OrderBy(d => d.Description).ToList();
+                    medicines = medicines.OrderBy(d => d.Category.Name).ToList();
                 else
-                    medicines = medicines.OrderByDescending(d => d.Description).ToList();
+                    medicines = medicines.OrderByDescending(d => d.Category.Name).ToList();
             }
             else
             {
@@ -135,7 +135,56 @@ namespace ClinicManagement.Repositories
             Medicines medicines=_context.Medicines.Where(c=>c.ID==id).FirstOrDefault();    
             return medicines;
         }
-       
+
+        public List<Unit> GetUnitsSelected()
+        {
+            var units=_context.Units.ToList();
+            units.Insert(0,new Unit{ID=-1,Name="Không rõ đơn vị tính"});
+            return units;
+        }
+
+        public List<Manufacture> GetManufactureSelected()
+        {
+            var Manufacture=_context.Manufactures.ToList();
+            Manufacture.Insert(0,new Manufacture{ID=-1,Name="Không rõ nhà sản xuất"});
+            return Manufacture;
+        }
+
+        public List<Category> GetCategorySelected()
+        {
+             var qr = (from c in _context.Categories select c)
+                     .Include(c => c.ParentCategory)
+                     .Include(c => c.CategoryChildren);
+
+            var categories = qr.ToList()
+                             .Where(c => c.ParentCategory == null)
+                             .ToList();   
+            categories.Insert(0, new Category(){
+                ID = -1,
+                Name = "Không có danh mục cha"
+            });
+            var items = new List<Category>();
+            CreateSelectItems(categories, items, 0);
+            return items;
+        }
+
+         private void CreateSelectItems(List<Category> source, List<Category> des, int level)
+        {
+            string prefix = string.Concat(Enumerable.Repeat("----", level));
+            foreach (var category in source)
+            {
+                // category.Title = prefix + " " + category.Title;
+                des.Add(new Category() {
+                    ID = category.ID,
+                    Name = prefix + " " + category.Name
+                });
+                if (category.CategoryChildren?.Count > 0)
+                {
+                    CreateSelectItems(category.CategoryChildren.ToList(), des, level +1);
+                }
+            }
+        }
+
 
 
         // public List<Category> GetChildCategory(int? parentId)

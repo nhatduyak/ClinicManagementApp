@@ -16,11 +16,11 @@
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
+            @* <div class="form-group">
                 <label asp-for="Code" class="control-label"></label>
                 <input asp-for="Code" class="form-control" />
                 <span asp-validation-for="Code" class="text-danger"></span>
-            </div>
+            </div> *@
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
                 <input asp-for="Name" class="form-control" />
@@ -28,12 +28,20 @@
             </div>
             <div class="form-group">
                 <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
+                <textarea rows="5" asp-for="Description" class="form-control" ></textarea>
                 <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CategoryId" class="control-label"></label>
+                <select asp-for="CategoryId" class ="form-control" asp-items="ViewBag.CategoryId"></select>
             </div>
             <div class="form-group">
                 <label asp-for="UnitID" class="control-label"></label>
                 <select asp-for="UnitID" class ="form-control" asp-items="ViewBag.UnitID"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="ManufactureId" class="control-label"></label>
+                <select asp-for="ManufactureId" class ="form-control" asp-items="ViewBag.ManufactureID"></select>
             </div>
             <div class="form-group">
                 <label asp-for="UnitPrice" class="control-label"></label>
@@ -64,27 +72,9 @@
                 <label asp-for="OldSellPrice" class="control-label"></label>
                 <input asp-for="OldSellPrice" class="form-control" />
                 <span asp-validation-for="OldSellPrice" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DateCreate" class="control-label"></label>
-                <input asp-for="DateCreate" class="form-control" />
-                <span asp-validation-for="DateCreate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DateModify" class="control-label"></label>
-                <input asp-for="DateModify" class="form-control" />
-                <span asp-validation-for="DateModify" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="UserID" class="control-label"></label>
-                <input asp-for="UserID" class="form-control" />
-                <span asp-validation-for="UserID" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="UserIDModify" class="control-label"></label>
-                <input asp-for="UserIDModify" class="form-control" />
-                <span asp-validation-for="UserIDModify" class="text-danger"></span>
-            </div>
+            </div>       
+            
+            
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
                  <a class="btn btn-secondary" asp-action="index"

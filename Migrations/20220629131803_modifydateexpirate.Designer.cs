@@ -4,6 +4,7 @@ using ClinicManagement.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ClinicManagement.Migrations
 {
     [DbContext(typeof(ClinicManagementDbContext))]
-    partial class ClinicManagementDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220629131803_modifydateexpirate")]
+    partial class modifydateexpirate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -306,9 +308,6 @@ namespace ClinicManagement.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
 
-                    b.Property<int?>("CategoryId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Code")
                         .HasColumnType("nvarchar(450)");
 
@@ -358,8 +357,6 @@ namespace ClinicManagement.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");
-
-                    b.HasIndex("CategoryId");
 
                     b.HasIndex("Code")
                         .IsUnique()
@@ -779,10 +776,6 @@ namespace ClinicManagement.Migrations
 
             modelBuilder.Entity("ClinicManagement.Models.Medicines", b =>
                 {
-                    b.HasOne("ClinicManagement.Models.Category", "Category")
-                        .WithMany()
-                        .HasForeignKey("CategoryId");
-
                     b.HasOne("ClinicManagement.Models.Manufacture", "Manufacture")
                         .WithMany()
                         .HasForeignKey("ManufactureId");
@@ -790,8 +783,6 @@ namespace ClinicManagement.Migrations
                     b.HasOne("ClinicManagement.Models.Unit", "Units")
                         .WithMany()
                         .HasForeignKey("UnitID");
-
-                    b.Navigation("Category");
 
                     b.Navigation("Manufacture");
 

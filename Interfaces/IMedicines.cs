@@ -23,5 +23,12 @@ namespace ClinicManagement.Interfaces
         //public List<Medicines> GetChildCategory(int? parentId);
         //List<Medicines> GetItemsSelectlist();
 
+        public List<Unit> GetUnitsSelected();
+
+        public List<Manufacture> GetManufactureSelected();
+
+        public List<Category> GetCategorySelected();
+        
+
     }
 }

@@ -38,9 +38,9 @@
                 </a>
             </th>
             <th>
-                <i class="@sortModel.GetColumn("description").SortIcon" arial-hidden="true"></i>
-                <a asp-action="Index" asp-route-sortExpression="@sortModel.GetColumn("description").SortExpression">
-                    @Html.DisplayNameFor(model => model.Description)
+                <i class="@sortModel.GetColumn("Category").SortIcon" arial-hidden="true"></i>
+                <a asp-action="Index" asp-route-sortExpression="@sortModel.GetColumn("Category").SortExpression">
+                    @Html.DisplayNameFor(model => model.Category)
                 </a>
             </th>
             <th>
@@ -93,7 +93,7 @@
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Description)
+                @Html.DisplayFor(modelItem => item.Category)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Units.Name)

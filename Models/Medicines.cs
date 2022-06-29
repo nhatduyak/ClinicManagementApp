@@ -34,6 +34,11 @@ namespace ClinicManagement.Models
         [ForeignKey("ManufactureId")]
         public virtual Manufacture Manufacture{get;set;}
 
+        [Display(Name ="Danh mục")]
+        public int? CategoryId{get;set;}
+        [ForeignKey("CategoryId")]
+        public virtual Category Category{get;set;}
+
         [Display(Name ="Đơn giá")]
         [Column(TypeName ="smallmoney")]
         [DisplayFormat(DataFormatString ="{0:0.000}",ApplyFormatInEditMode =true)]
@@ -48,6 +53,7 @@ namespace ClinicManagement.Models
         public int Quantity{get;set;}
 
         [Display(Name ="Ngày Hết hạn")]
+        [DataType(DataType.Date)]
         public DateTime? ExpiryDate{get;set;}=DateTime.Now;
 
 

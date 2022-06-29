@@ -29,7 +29,7 @@ namespace ClinicManagement.Controllers
              SortModel sortModel=new SortModel();
             sortModel.AddColumn("code");
             sortModel.AddColumn("name");
-            sortModel.AddColumn("description");
+            sortModel.AddColumn("Category");
             sortModel.AddColumn("unitprice");
             sortModel.AddColumn("SellPrice");
             sortModel.AddColumn("Quantity");
@@ -50,35 +50,39 @@ namespace ClinicManagement.Controllers
 
         }
 
-        // GET: Medicines/Details/5
-        // public async Task<IActionResult> Details(int? id)
-        // {
-        //     if (id == null)
-        //     {
-        //         return NotFound();
-        //     }
+        //GET: Medicines/Details/5
+        public IActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
 
-        //     var medicines = await _context.Medicines
-        //         .Include(m => m.Units)
-        //         .FirstOrDefaultAsync(m => m.ID == id);
-        //     if (medicines == null)
-        //     {
-        //         return NotFound();
-        //     }
+            // var medicines = await _context.Medicines
+            //     .Include(m => m.Units)
+            //     .FirstOrDefaultAsync(m => m.ID == id);
+            var medicines=_medicinesrepo.GetMedicines(id);
+            if (medicines == null)
+            {
+                return NotFound();
+            }
 
-        //     return View(medicines);
-        // }
+            return View(medicines);
+        }
 
-        // // GET: Medicines/Create
-        // public IActionResult Create()
-        // {
-        //     ViewData["UnitID"] = new SelectList(_context.Units, "ID", "Name");
-        //     return View();
-        // }
+        // GET: Medicines/Create
+        public IActionResult Create()
+        {
+            
+            ViewData["UnitID"] = new SelectList(_medicinesrepo.GetUnitsSelected(), "ID", "Name");
+            ViewData["ManufactureID"]=new SelectList(_medicinesrepo.GetManufactureSelected(),"ID","Name");
+            ViewData["CategoryId"]=new SelectList(_medicinesrepo.GetCategorySelected(),"ID","Name");
+            return View();
+        }
 
-        // // POST: Medicines/Create
-        // // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: Medicines/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         // [HttpPost]
         // [ValidateAntiForgeryToken]
         // public async Task<IActionResult> Create([Bind("ID,Code,Name,Description,UnitID,UnitPrice,SellPrice,Quantity,ExpiryDate,OldUnitPrice,OldSellPrice,DateCreate,DateModify,UserID,UserIDModify")] Medicines medicines)
