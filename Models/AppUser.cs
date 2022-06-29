@@ -9,7 +9,7 @@ namespace ClinicManagement.Models
     {
           public int? DoctorID { get; set; }
           [ForeignKey("DoctorID")]
-          public Doctor Doctor{get;set;}
+          public virtual Doctor Doctor{get;set;}
 
         //   // [Required]       
         //   [DataType(DataType.Date)]

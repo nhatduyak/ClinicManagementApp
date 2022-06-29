@@ -47,9 +47,9 @@ namespace ClinicManagement.Menu {
             Items.Add(new SidebarItem() { Type = SidebarItemType.Heading, Title = "Quản lý Thuốc"});
             Items.Add(new SidebarItem() { 
                                 Type = SidebarItemType.NavItem,
-                                Controller = "DbManage",
+                                Controller = "Medicines",
                                 Action = "Index", 
-                                Area = "Database",
+                                // Area = "Database",
                                 Title = "Quản lý Thuốc",
                                 AwesomeIcon = "fas fa-capsules"
                             });
@@ -69,9 +69,8 @@ namespace ClinicManagement.Menu {
                             });               
             Items.Add(new SidebarItem() { 
                                 Type = SidebarItemType.NavItem,
-                                Controller = "DbManage",
+                                Controller = "Manufacture",
                                 Action = "Index", 
-                                Area = "Database",
                                 Title = "Nhà sản xuất",
                                 AwesomeIcon = "fas fa-shipping-fast"
                             });   

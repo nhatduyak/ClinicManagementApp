@@ -18,13 +18,13 @@ namespace ClinicManagement.Models
         public string Descriptions { get; set; }
 
         // Các Category con
-      public ICollection<Category> CategoryChildren { get; set; }
+      public virtual ICollection<Category> CategoryChildren { get; set; }
 
         [Display(Name = "Danh mục cha")]
         public int? ParentCategoryID { get; set; }
 
         [ForeignKey("ParentCategoryID")]
-        public Category ParentCategory{get;set;}
+        public virtual Category ParentCategory{get;set;}
 
 
     }

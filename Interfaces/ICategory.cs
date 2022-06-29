@@ -9,7 +9,7 @@ namespace ClinicManagement.Interfaces
     {
         PaginatedList<Category> GetItems(string SortProperty,SortOrder sortOrder,string SearchText="",int pageIndex=1,int pageSize=5);
 
-        Category GetCategory(int id);
+        Category GetCategory(int? id);
 
         Category Create(Category category);
 
@@ -20,7 +20,7 @@ namespace ClinicManagement.Interfaces
         public bool IsCategoryNameExits(string name);
 
         public bool IsCategoryNameExits(string name,int id);
-            public bool CanUpdate(ICollection<Category> Items,int parentId);
+            public List<Category> GetChildCategory(int? parentId);
         List<Category> GetItemsSelectlist();
 
     }

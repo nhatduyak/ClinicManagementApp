@@ -38,16 +38,16 @@ namespace ClinicManagement.Models
 
         public int? GenderID { get; set; }
         [ForeignKey("GenderID")]
-        public Gender gender{set;get;}
+        public virtual Gender gender{set;get;}
 
 
          public int? BloodGroupID { get; set; }
         [ForeignKey("BloodGroupID")]
-        public BoolGroup boolGroup{set;get;}
+        public virtual BoolGroup boolGroup{set;get;}
 
         public int? AddressID { get; set; }
         [ForeignKey("AddressID")]
-        public Address address{set;get;}
+        public virtual Address address{set;get;}
 
 
         public bool Doctor_Status{get;set;}

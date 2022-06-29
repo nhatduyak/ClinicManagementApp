@@ -25,9 +25,9 @@ namespace ClinicManagement.Models
 
         public int PatientID { get; set; }
         [ForeignKey("PatientID")]
-        public Patient Patient{get;set;}
+        public virtual Patient Patient{get;set;}
 
-      public ICollection<PaymentDetail> PaymentDetail { get; set; }
+      public virtual ICollection<PaymentDetail> PaymentDetail { get; set; }
 
       public bool isdeleted;
 

@@ -73,122 +73,150 @@ namespace ClinicManagement.Controllers
             CreateSelectItems(listCategory, items, 0);
             var selectList = new SelectList(items, "ID", "Name");
 
-            ViewBag.ParentCategoryID = selectList;
+            //ViewBag.ParentCategoryID = selectList;
+            ViewData["ParentCategoryID"]=selectList;
 
             Category category = new Category();
             return View(category);
         }
 
-        [HttpPost]  
+        [HttpPost]
         public IActionResult Create(Category category)
         {
-            bool bolret = false;
             string errMessage = "";
             try
-            {               
+            {
 
-                if (_category.IsCategoryNameExits(category.Name) == true)
-                    errMessage = errMessage + " " + " Tên danh mục " + category.Name +" đã tồn tại";
+                // if (_category.IsCategoryNameExits(category.Name) == true)
+                //     errMessage = errMessage + " " + " Tên danh mục " + category.Name +" đã tồn tại";
 
                 if (ModelState.IsValid)
                 {
-                     if (category.ParentCategoryID == -1) category.ParentCategoryID  = null;
+                    if (category.ParentCategoryID == -1) category.ParentCategoryID = null;
                     category = _category.Create(category);
-                    bolret = true;
-                }                
+                    return RedirectToAction(nameof(Index));
+                }
             }
-            catch(Exception ex) 
+            catch (Exception ex)
             {
                 errMessage = errMessage + " " + ex.Message;
             }
-            if (bolret == false)
-            {
-                //TempData["ErrorMessage"] = errMessage;\
-                //StatusMessage=errMessage;
-                 var listCategory=_category.GetItemsSelectlist();
-                    listCategory.Insert(0,new Category{ID=-1,Name="không có danh mục cha"});
-                    var items = new List<Category>();
-                    CreateSelectItems(listCategory, items, 0);
-                    var selectList = new SelectList(items, "ID", "Name");
 
-                    ViewBag.ParentCategoryID = selectList;
-                        return View(category);
+            //TempData["ErrorMessage"] = errMessage;\
+            //StatusMessage=errMessage;
+            var listCategory = _category.GetItemsSelectlist();
+            listCategory.Insert(0, new Category { ID = -1, Name = "không có danh mục cha" });
+            var items = new List<Category>();
+            CreateSelectItems(listCategory, items, 0);
+            var selectList = new SelectList(items, "ID", "Name");
 
-            }
-            else
-            {
-                //TempData["SuccessMessage"] 
-                StatusMessage= "Danh mục " + category.Name + " Tạo mới danh mục thành công";
-                return RedirectToAction(nameof(Index));
-            }
+            ViewBag.ParentCategoryID = selectList;
+            return View(category);
         }
-        public IActionResult Details(int id) //read
+        public IActionResult Details(int? id) //read
         {
+            if(id==null)
+            {
+                return NotFound();
+            }
              Category category =_category.GetCategory(id);              
+             if(category==null)
+                return NotFound();
             return View(category);        
         }
 
         
-        public IActionResult Edit(int id)
+        public IActionResult Edit(int? id)
         {
-             var listCategory=_category.GetItemsSelectlist();
-                    listCategory.Insert(0,new Category{ID=-1,Name="không có danh mục cha"});
-                    var items = new List<Category>();
-                    CreateSelectItems(listCategory, items, 0);
-                    var selectList = new SelectList(items, "ID", "Name");
-
-                    ViewBag.ParentCategoryID = selectList;
+            if(id==null)
+            {
+                return NotFound();
+            }
             Category category = _category.GetCategory(id);
+            if(category==null)
+            {
+                return NotFound();
+            }
+            var listCategory = _category.GetItemsSelectlist();
+            listCategory.Insert(0, new Category { ID = -1, Name = "không có danh mục cha" });
+            var items = new List<Category>();
+            CreateSelectItems(listCategory, items, 0);
+            var selectList = new SelectList(items, "ID", "Name");
+            ViewBag.ParentCategoryID = selectList;
+            
             //TempData.Keep();
             return View(category);
-        }  
-        
+        }
+
         [HttpPost]
         public IActionResult Edit(Category category)
         {
-            bool bolret = false;
             string errMessage = "";
+            bool CanUpdate=true;
 
             try
             {
-               if (_category.IsCategoryNameExits(category.Name, category.ID) == true)
-                    errMessage = errMessage + "Tên danh mục " + category.Name + " đã tồn tại";
+                //    if (_category.IsCategoryNameExits(category.Name, category.ID) == true)
+                //         errMessage = errMessage + "Tên danh mục " + category.Name + " đã tồn tại";
                 //bool checkdmcha=_category.CanUpdate(category.CategoryChildren,category.ID);
-                if (errMessage == "")
+                if(category.ParentCategoryID==category.ID)
                 {
-                     if (category.ParentCategoryID == -1) category.ParentCategoryID  = null;
+                    ModelState.AddModelError(string.Empty,"Phải chọn danh mục cha khác");
+                    CanUpdate=false;
+                }
+                if(CanUpdate&&category.ParentCategoryID!=null)
+                {
+                    var childCates =  _category.GetChildCategory(category.ParentCategoryID);
+                     Func<List<Category>, bool> checkCateIds = null;
+                checkCateIds = (cates) => 
+                    {
+                        foreach (var cate in cates)
+                        { 
+                             Console.WriteLine(cate.Name); 
+                            if (cate.ID == category.ParentCategoryID)
+                            {
+                                CanUpdate = false;
+                                ModelState.AddModelError(string.Empty, "Phải chọn danh mục cha khácXX");
+                                return true;
+                            }
+                            if (cate.CategoryChildren!=null)
+                                return checkCateIds(cate.CategoryChildren.ToList());
+                          
+                        }
+                        return false;
+                    };
+                // End Func 
+                checkCateIds(childCates.ToList()); 
+                }
+
+                int currentPage = 1;
+                if (TempData["CurrentPage"] != null)
+                    currentPage = (int)TempData["CurrentPage"];
+                if (ModelState.IsValid&&CanUpdate)
+                {
+                    if (category.ParentCategoryID == -1) category.ParentCategoryID = null;
                     category = _category.Edit(category);
-                    StatusMessage= category.Name + " Danh mục lưu thành công";
-                    bolret = true;
+                    StatusMessage = category.Name + " Danh mục lưu thành công";
+
+                    return RedirectToAction(nameof(Index), new { pg = currentPage });
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                errMessage = errMessage + " " + ex.Message;                
+                errMessage = errMessage + " " + ex.Message;
             }
 
-          
+           
+            var listCategory = _category.GetItemsSelectlist();
+            listCategory.Insert(0, new Category { ID = -1, Name = "không có danh mục cha" });
+            var items = new List<Category>();
+            CreateSelectItems(listCategory, items, 0);
+            var selectList = new SelectList(items, "ID", "Name");
 
-            int currentPage = 1;
-            if (TempData["CurrentPage"] != null)
-                currentPage = (int)TempData["CurrentPage"];
+            ViewBag.ParentCategoryID = selectList;
+            return View(category);
 
-          
-            if(bolret==false)
-            {
-                //StatusMessage = errMessage;
-                ModelState.AddModelError("", errMessage);
-                 var listCategory=_category.GetItemsSelectlist();
-                    listCategory.Insert(0,new Category{ID=-1,Name="không có danh mục cha"});
-                    var items = new List<Category>();
-                    CreateSelectItems(listCategory, items, 0);
-                    var selectList = new SelectList(items, "ID", "Name");
 
-                    ViewBag.ParentCategoryID = selectList;
-                return View(category);
-            }
-            else
-            return RedirectToAction(nameof(Index),new {pg=currentPage});
         }
 
         // GET: Unit/Delete/5
@@ -201,10 +229,24 @@ namespace ClinicManagement.Controllers
 
         
         [HttpPost]
-        public IActionResult Delete(Category category)
+        [ValidateAntiForgeryToken]
+
+        public IActionResult DeleteConfirmed(int id)
         {
+            
+            Category category;
             try
             {
+                category= _category.GetCategory(id);
+                if(category==null)
+                {
+                    return NotFound();
+                }
+
+                foreach(var item in category.CategoryChildren)
+                {
+                    item.ParentCategoryID=category.ParentCategoryID;
+                }
                 category = _category.Delete(category);
             }
             catch(Exception ex)
@@ -212,7 +254,7 @@ namespace ClinicManagement.Controllers
                 string errMessage = ex.Message;
                 //StatusMessage = errMessage;
                 ModelState.AddModelError("", errMessage);
-                return View(category);
+                return View();
             }          
             
             int currentPage = 1;

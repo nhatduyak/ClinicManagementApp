@@ -6,11 +6,11 @@ namespace ClinicManagement.Models
     {
         public int MedicinesID{get;set;}
         [ForeignKey("MedicinesID")]
-        public Medicines Medicines{get;set;}
+        public virtual Medicines Medicines{get;set;}
 
 
          public int CategoryID{get;set;}
         [ForeignKey("CategoryID")]
-        public Category Category{get;set;}
+        public virtual Category Category{get;set;}
     }
 }

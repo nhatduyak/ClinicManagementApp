@@ -6,10 +6,10 @@ namespace ClinicManagement.Models
     {
         public int MedicinesID { get; set; }
         [ForeignKey("MedicinesID")]
-        public Medicines medicines{get;set;}
+        public virtual Medicines medicines{get;set;}
 
         public int PaymentHeaderID { get; set; }
         [ForeignKey("PaymentHeaderID")]
-        public PaymentHeader PaymentHeader{get;set;}
+        public virtual PaymentHeader PaymentHeader{get;set;}
     }
 }

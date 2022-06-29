@@ -12,11 +12,11 @@ namespace ClinicManagement.Models
 
         public int PatientID{get;set;}
         [ForeignKey("PatientID")]
-        public Patient Patient{get;set;}
+        public virtual Patient Patient{get;set;}
 
           public int DoctorID{get;set;}
         [ForeignKey("DoctorID")]
-        public Doctor Doctor{get;set;}
+        public virtual Doctor Doctor{get;set;}
 
 
         [Display(Name ="Ngày tạo")]
@@ -35,7 +35,7 @@ namespace ClinicManagement.Models
         public string Note { get; set; }
 
 
-       public List<PrescriptionsDetail> PrescriptionsDetail{get;set;}
+       public virtual List<PrescriptionsDetail> PrescriptionsDetail{get;set;}
       public bool isdeleted;
         
     }

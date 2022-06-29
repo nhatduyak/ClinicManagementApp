@@ -14,11 +14,11 @@ namespace ClinicManagement.Models
 
         public int PaymentHeaderID{get;set;}
         [ForeignKey("PaymentHeaderID")]
-        public PaymentHeader paymentHeader{get;set;}
+        public virtual PaymentHeader paymentHeader{get;set;}
 
         public int MedicinesID{get;set;}
          [ForeignKey("MedicinesID")]
-        public Medicines Medicines{get;set;}
+        public virtual Medicines Medicines{get;set;}
 
         public int Quantity{set;get;}
 

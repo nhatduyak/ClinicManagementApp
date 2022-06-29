@@ -19,6 +19,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 
+
 namespace ClinicManagement
 {
     public class Startup
@@ -35,7 +36,8 @@ namespace ClinicManagement
         {
             services.AddControllersWithViews();
             services.AddDbContext<ClinicManagementDbContext>(options=>{
-                options.UseSqlServer(Configuration.GetConnectionString("AppDbContext"));
+                options.UseLazyLoadingProxies()
+                        .UseSqlServer(Configuration.GetConnectionString("AppDbContext"));
             });
 
               // Dang ky Identity
@@ -97,7 +99,9 @@ services.AddOptions();
                             services.AddTransient<IActionContextAccessor, ActionContextAccessor>();
                 services.AddTransient<AdminSidebarService>();
                 services.AddScoped<IUnit, UnitRepository>();   
-                services.AddScoped<ICategory, CategoryRepository>();            
+                services.AddScoped<ICategory, CategoryRepository>();      
+                services.AddScoped<IManufacture, ManufactureRepository>(); 
+                services.AddScoped<IMedicines, MedicinesRepositories>();                    
          
 
         }

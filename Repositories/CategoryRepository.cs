@@ -39,7 +39,7 @@ namespace ClinicManagement.Repositories
             return category;
         }
 
-        public Category GetCategory(int id)
+        public Category GetCategory(int? id)
         {
             // Category category=_context.Categories.Where(c=>c.ID==id).FirstOrDefault();
              var kq = _context.Categories
@@ -138,31 +138,21 @@ namespace ClinicManagement.Repositories
         public bool IsCategoryNameExits(string name, int id)
         {
             bool result= _context.Categories.Any(c=>c.Name==name && c.ID==id);
-            return result;        }
+            return result;       
+        }
 
-        public bool CanUpdate(ICollection<Category> Items,int parentId)
+        public List<Category> GetChildCategory(int? parentId)
         {
-            bool resul=true;          
+            
+                 var qr = (from c in _context.Categories select c)
+                     .Include(c => c.ParentCategory)
+                     .Include(c => c.CategoryChildren);
 
-
-                // Func check Id 
-                
-                        foreach (var cate in Items)
-                        { 
-                             //Console.WriteLine(cate.Title); 
-                            if (cate.ID == parentId)
-                            {
-                                return false;
-                                //ModelState.AddModelError(string.Empty, "Phải chọn danh mục cha khácXX");
-                                //return true;
-                            }
-                            if (cate.CategoryChildren!=null)
-                                return resul && CanUpdate(cate.CategoryChildren,parentId);
-                            
-                            
-                          
-                        }                  
-                return resul;
+            var categories = (qr.ToList())
+                             .Where(c => c.ParentCategoryID == parentId)
+                             .ToList();   
+                     
+                return categories;
         }
     }
 }

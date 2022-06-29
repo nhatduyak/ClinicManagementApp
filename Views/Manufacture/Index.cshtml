@@ -1,24 +1,23 @@
 @using ClinicManagement.Menu
 @inject AdminSidebarService _AdminSidebarService
-@model IEnumerable<ClinicManagement.Models.Category>
+@model IEnumerable<ClinicManagement.Models.Manufacture>
 
 @{
-    ViewData["Title"] = "Danh mục thuốc";
+    ViewData["Title"] = "Danh sách nhà sản xuất";
     SortModel sortModel = (SortModel)ViewData["sortModel"];
 
     PagerModel pager = ViewBag.Pager;
 }
+
+@* <h1>Index</h1> *@
 <partial name="_StatusMessage" />
 
-@* 
-<h1>Index</h1> *@
 <div class="container-fluid btn-group">
 <p>
     <a asp-action="Create" class="btn btn-success"><i class="fas fa-plus"></i></a>
 </p>
 </div>
 <br/>
-
 <div class="row">
     <div class="col-12">
         <partial name="_topBar" model="@pager" />
@@ -37,14 +36,18 @@
             <th>
                 <i class="@sortModel.GetColumn("description").SortIcon" arial-hidden="true"></i>
                 <a asp-action="Index" asp-route-sortExpression="@sortModel.GetColumn("description").SortExpression">
-                    @Html.DisplayNameFor(model => model.Descriptions)
+                    @Html.DisplayNameFor(model => model.Description)
+                </a>            </th>
+            <th>
+                <i class="@sortModel.GetColumn("description").SortIcon" arial-hidden="true"></i>
+                <a asp-action="Index" asp-route-sortExpression="@sortModel.GetColumn("description").SortExpression">
+                    @Html.DisplayNameFor(model => model.Address)
                 </a>
             </th>
             <th>
-                 <i class="@sortModel.GetColumn("description").SortIcon" arial-hidden="true"></i>
-
-                <a asp-action="Index" asp-route-sortExpression="@sortModel.GetColumn("ParentCategory").SortExpression">
-                    @Html.DisplayNameFor(model => model.ParentCategory)
+                <i class="@sortModel.GetColumn("DateCreate").SortIcon" arial-hidden="true"></i>
+                <a asp-action="Index" asp-route-sortExpression="@sortModel.GetColumn("DateCreate").SortExpression">
+                    @Html.DisplayNameFor(model => model.DateCreate)
                 </a>
             </th>
             <th></th>
@@ -52,38 +55,18 @@
     </thead>
     <tbody>
 @foreach (var item in Model) {
-        await RenderCategory(item,0);
-}
-    </tbody>
-</table>
-
-<div class="row">
-    <div class="col-12">
-        <partial name="_bottomBar" model="@pager" />
-    </div>
-</div>
-
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-
-}
-@section Sidebar
-{
-    @Html.Raw(_AdminSidebarService.renderHtml())
-}
-@{
-    async Task RenderCategory(Category item,int lever)
-    {
-        string prefix=string.Concat(Enumerable.Repeat("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;",lever));
         <tr>
             <td>
-               @Html.Raw(prefix)+ @Html.DisplayFor(modelItem => item.Name)
+                @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Descriptions)
+                @Html.DisplayFor(modelItem => item.Description)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ParentCategory.Name)
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateCreate)
             </td>
             <td>
                  <div class="btn-group">
@@ -108,13 +91,20 @@
                
             </td>
         </tr>
-        if(item.CategoryChildren?.Count>0)
-        {
-            lever++;
-            foreach (var i in item.CategoryChildren)
-            {
-                await RenderCategory(i,lever);
-            }
-        }
-    }
+}
+    </tbody>
+</table>
+<div class="row">
+    <div class="col-12">
+        <partial name="_bottomBar" model="@pager" />
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+}
+@section Sidebar
+{
+    @Html.Raw(_AdminSidebarService.renderHtml())
 }

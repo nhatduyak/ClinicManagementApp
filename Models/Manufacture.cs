@@ -16,11 +16,11 @@ namespace ClinicManagement.Models
         public string Description { get; set; }
 
          [Display(Name ="Địa chỉ")]
-        [DataType(DataType.Date)]
+        [StringLength(255,ErrorMessage ="{0} phải nhỏ hơn {1} ký tự")]
         public string Address{get;set;}
 
-          [Display(Name ="Ngày tạo")]
+        [Display(Name ="Ngày tạo")]
         [DataType(DataType.Date)]
-        public DateTime DateCreate{get;set;}
+        public DateTime DateCreate{get;set;}=DateTime.Now;
     }
 }

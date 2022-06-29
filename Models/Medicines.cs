@@ -10,7 +10,7 @@ namespace ClinicManagement.Models
         [Key]
         public int ID { get; set; }
 
-         [Display(Name ="Code")]
+        [Display(Name ="Code")]
         public string Code { get; set; }=DateTime.Now.ToString("yyyyMMddhhmmss");
 
         [Display(Name ="Tên Thuốc")]
@@ -22,11 +22,17 @@ namespace ClinicManagement.Models
         [StringLength(150,ErrorMessage ="{0} phải từ {2} đến {1} ký tự",MinimumLength =3)]
         public string Description { get; set; }
 
-        public List<MedicinesCategory> MedicinesCatogorys{get;set;}
+        public virtual List<MedicinesCategory> MedicinesCatogorys{get;set;}
 
+        [Display(Name ="Đơn vị tính")]
         public int? UnitID{get;set;}
         [ForeignKey("UnitID")]
-        public Unit Units{get;set;}
+        public virtual Unit Units{get;set;}
+
+         [Display(Name ="Nhà sản xuất")]
+        public int? ManufactureId{get;set;}
+        [ForeignKey("ManufactureId")]
+        public virtual Manufacture Manufacture{get;set;}
 
         [Display(Name ="Đơn giá")]
         [Column(TypeName ="smallmoney")]
@@ -42,7 +48,7 @@ namespace ClinicManagement.Models
         public int Quantity{get;set;}
 
         [Display(Name ="Ngày Hết hạn")]
-        public DateTime? ExpiryDate{get;set;}
+        public DateTime? ExpiryDate{get;set;}=DateTime.Now;
 
 
           [Display(Name ="Đơn giá cũ")]
@@ -57,17 +63,22 @@ namespace ClinicManagement.Models
 
 
          [Display(Name ="Ngày tạo")]
-        public DateTime? DateCreate{get;set;}  
+        public DateTime? DateCreate{get;set;} =DateTime.Now;
 
         
          [Display(Name ="Ngày Cập Nhật")]
-        public DateTime? DateModify{get;set;}  
+        public DateTime? DateModify{get;set;} =null;
 
         public string UserID{get;set;}
+        // [ForeignKey("UserCreate")]
+        // [NotMapped]
+        // public AppUser UserCreate{get;set;}
        
 
         public string UserIDModify{get;set;}
-       
+        //  [ForeignKey("UserModify")]
+        //  [NotMapped]
+        // public AppUser UserModify{get;set;}
 
     }
 }
