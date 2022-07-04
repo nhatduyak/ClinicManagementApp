@@ -50,7 +50,7 @@ namespace ClinicManagement.Models
         }
 
         public DbSet<Gender> Genders{get;set;}
-        public DbSet<BoolGroup> BoolGroups{get;set;}
+        public DbSet<BloodGroup> BloodGroups{get;set;}
 
         public DbSet<Address> addresses{get;set;}
 

@@ -38,19 +38,23 @@ namespace ClinicManagement.Models
         public int? CategoryId{get;set;}
         [ForeignKey("CategoryId")]
         public virtual Category Category{get;set;}
-
+  
         [Display(Name ="Đơn giá")]
         [Column(TypeName ="smallmoney")]
-        [DisplayFormat(DataFormatString ="{0:0.000}",ApplyFormatInEditMode =true)]
+        // [DisplayFormat(DataFormatString ="{0:0.000}",ApplyFormatInEditMode =true)]
+        [DisplayFormat(DataFormatString ="{0:c}",ApplyFormatInEditMode =true)]
+
         
         public decimal? UnitPrice{get;set;}
 
         [Display(Name ="Giá bán")]
         [Column(TypeName ="smallmoney")]
-        [DisplayFormat(DataFormatString ="{0:0.000}",ApplyFormatInEditMode =true)]
+        // [DisplayFormat(DataFormatString ="{0:0.000}",ApplyFormatInEditMode =true)]
+        [DisplayFormat(DataFormatString ="{0:c}",ApplyFormatInEditMode =true)]
+
         public decimal? SellPrice{get;set;}      
         [Display(Name ="Số lượng")]
-        public int Quantity{get;set;}
+        public int? Quantity{get;set;}
 
         [Display(Name ="Ngày Hết hạn")]
         [DataType(DataType.Date)]
@@ -58,33 +62,34 @@ namespace ClinicManagement.Models
 
 
           [Display(Name ="Đơn giá cũ")]
-        [DisplayFormat(DataFormatString ="{0:0.000}",ApplyFormatInEditMode =true)]
+        [DisplayFormat(DataFormatString ="{0:c}",ApplyFormatInEditMode =true)]
         [Column(TypeName ="smallmoney")]
         public decimal? OldUnitPrice{get;set;}
 
+      
         [Display(Name ="Giá bán cũ")]
         [Column(TypeName ="smallmoney")]
-        [DisplayFormat(DataFormatString ="{0:0.000}",ApplyFormatInEditMode =true)]
+        [DisplayFormat(DataFormatString ="{0:c}",ApplyFormatInEditMode =true)]
         public decimal? OldSellPrice{get;set;}    
 
 
          [Display(Name ="Ngày tạo")]
-        public DateTime? DateCreate{get;set;} =DateTime.Now;
-
+         [DataType(DataType.Date)]
+        public DateTime? DateCreate{get;set;}
         
          [Display(Name ="Ngày Cập Nhật")]
+        [DataType(DataType.Date)]
         public DateTime? DateModify{get;set;} =null;
 
+         [Display(Name ="Người tạo")]
         public string UserID{get;set;}
-        // [ForeignKey("UserCreate")]
-        // [NotMapped]
-        // public AppUser UserCreate{get;set;}
+        [ForeignKey("UserID")]
+        public virtual AppUser UserCreate{get;set;}
        
-
+        [Display(Name ="Người cập nhật")]
         public string UserIDModify{get;set;}
-        //  [ForeignKey("UserModify")]
-        //  [NotMapped]
-        // public AppUser UserModify{get;set;}
+         [ForeignKey("UserIDModify")]
+        public virtual AppUser UserModify{get;set;}
 
     }
 }

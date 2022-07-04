@@ -9,7 +9,7 @@ namespace ClinicManagement.Interfaces
     {
         PaginatedList<Medicines> GetItems(string SortProperty,SortOrder sortOrder,string SearchText="",int pageIndex=1,int pageSize=5);
 
-        Medicines GetMedicines(int? id);
+        Task<Medicines> GetMedicines(int? id);
 
         Medicines Create(Medicines medicines);
 
@@ -17,7 +17,7 @@ namespace ClinicManagement.Interfaces
 
         Medicines Delete(Medicines medicines);
 
-        public bool IsMedicinesNameExits(string name);
+        public bool IsMedicinesIdExits(int id);
 
         public bool IsMedicinesNameExits(string name,int id);
         //public List<Medicines> GetChildCategory(int? parentId);

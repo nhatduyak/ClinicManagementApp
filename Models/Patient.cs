@@ -43,7 +43,7 @@ namespace ClinicManagement.Models
 
          public int? BloodGroupID { get; set; }
         [ForeignKey("BloodGroupID")]
-        public virtual BoolGroup boolGroup{set;get;}
+        public virtual BloodGroup boolGroup{set;get;}
 
         public int? AddressID { get; set; }
         [ForeignKey("AddressID")]

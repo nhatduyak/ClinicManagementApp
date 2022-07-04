@@ -15,13 +15,14 @@ namespace ClinicManagement.Controllers
     {
         //private readonly ClinicManagementDbContext _context;
 
-           [TempData]
+        [TempData]
         public string StatusMessage { get; set;}
         private readonly IUnit _unitRepo;
 
         public UnitController(IUnit unitrepo)
         {
-            _unitRepo = unitrepo;        }
+            _unitRepo = unitrepo;       
+        }
 
         // GET: Unit
         public IActionResult Index(string sortExpression="", string SearchText = "",int pg=1,int pageSize=5)
@@ -86,13 +87,13 @@ namespace ClinicManagement.Controllers
             }
             if (bolret == false)
             {
-                StatusMessage = errMessage;
+                //StatusMessage = errMessage;
                 ModelState.AddModelError("", errMessage);
                 return View(unit);
             }
             else
             {
-                StatusMessage= "Đơn vị " + unit.Name + " tọa thành công";
+                //StatusMessage= "Đơn vị " + unit.Name + " tạo thành công";
                 return RedirectToAction(nameof(Index));
             }
         }
@@ -121,7 +122,7 @@ namespace ClinicManagement.Controllers
                 if (errMessage == "")
                 {
                     unit = _unitRepo.Edit(unit);
-                    StatusMessage= unit.Name + ", đơn vị lưu thành công";
+                    //StatusMessage= unit.Name + ", đơn vị lưu thành công";
                     bolret = true;
                 }
             }
@@ -139,7 +140,7 @@ namespace ClinicManagement.Controllers
           
             if(bolret==false)
             {
-                StatusMessage = errMessage;
+                //StatusMessage = errMessage;
                 ModelState.AddModelError("", errMessage);
                 return View(unit);
             }
@@ -166,7 +167,7 @@ namespace ClinicManagement.Controllers
             catch(Exception ex)
             {
                 string errMessage = ex.Message;
-                StatusMessage = errMessage;
+                //StatusMessage = errMessage;
                 ModelState.AddModelError("", errMessage);
                 return View(unit);
             }          
@@ -175,7 +176,7 @@ namespace ClinicManagement.Controllers
             if (TempData["CurrentPage"] != null)
                 currentPage = (int)TempData["CurrentPage"];
 
-            StatusMessage = "đơn vị " + unit.Name + " xóa thành công";
+            //StatusMessage = "đơn vị " + unit.Name + " xóa thành công";
             return RedirectToAction(nameof(Index), new { pg = currentPage });
 
 

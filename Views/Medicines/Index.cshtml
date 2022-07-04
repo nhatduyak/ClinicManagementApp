@@ -38,15 +38,15 @@
                 </a>
             </th>
             <th>
-                <i class="@sortModel.GetColumn("Category").SortIcon" arial-hidden="true"></i>
-                <a asp-action="Index" asp-route-sortExpression="@sortModel.GetColumn("Category").SortExpression">
-                    @Html.DisplayNameFor(model => model.Category)
+                <i class="@sortModel.GetColumn("category").SortIcon" arial-hidden="true"></i>
+                <a asp-action="Index" asp-route-sortExpression="@sortModel.GetColumn("category").SortExpression">
+                    @Html.DisplayNameFor(model => model.Category.Name)
                 </a>
             </th>
             <th>
                 <i class="@sortModel.GetColumn("name").SortIcon" arial-hidden="true"></i>
                 <a asp-action="Index" asp-route-sortExpression="@sortModel.GetColumn("name").SortExpression">
-                    @Html.DisplayNameFor(model => model.Units)
+                    @Html.DisplayNameFor(model => model.Units.Name)
                 </a>
             </th>
             <th>
@@ -87,13 +87,16 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Code)
+                <a asp-action="Details" asp-route-id="@item.ID">
+                            @Html.DisplayFor(modelItem => item.Code)
+                </a>
+                
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Category)
+                @Html.DisplayFor(modelItem => item.Category.Name)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Units.Name)

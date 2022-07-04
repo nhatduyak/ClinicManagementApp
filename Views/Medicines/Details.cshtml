@@ -31,7 +31,13 @@
             @Html.DisplayFor(model => model.Description)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Units)
+            @Html.DisplayNameFor(model => model.CategoryId)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Category.Name)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.UnitID)
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Units.Name)
@@ -88,19 +94,22 @@
             @Html.DisplayNameFor(model => model.UserID)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.UserID)
+            @Html.DisplayFor(model => model.UserCreate.UserName)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.UserIDModify)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.UserIDModify)
+            @Html.DisplayFor(model => model.UserModify.UserName)
         </dd>
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.ID">Chỉnh sửa</a> |
-    <a asp-action="Index">Danh sách thuốc</a>
+   <div class="btn-group">
+    <a class="btn btn-primary" asp-action="Edit" asp-route-id="@Model.ID">Chỉnh sửa</a>
+    <a class="btn btn-secondary" asp-action="index"
+       asp-route-pg="@TempData["CurrentPage"]">Danh sách thuốc</a>    
+</div>
 </div>
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

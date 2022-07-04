@@ -102,7 +102,12 @@ services.AddOptions();
                 services.AddScoped<ICategory, CategoryRepository>();      
                 services.AddScoped<IManufacture, ManufactureRepository>(); 
                 services.AddScoped<IMedicines, MedicinesRepositories>();                    
-         
+         services.AddScoped<IAddress, AddressRepository>();     
+         services.AddScoped<IBloodGroup, BoolGroupRepository>();     
+         services.AddScoped<IGender, GenderRepository>();     
+         services.AddScoped<IPatient, PatientRepository>();     
+         services.AddScoped<IDoctor, DoctorRepository>();     
+         services.AddScoped<IClinicInfo, ClinicInfoRemository>();     
 
         }
 

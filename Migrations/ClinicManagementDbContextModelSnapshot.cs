@@ -124,13 +124,17 @@ namespace ClinicManagement.Migrations
                     b.ToTable("Users", (string)null);
                 });
 
-            modelBuilder.Entity("ClinicManagement.Models.BoolGroup", b =>
+            modelBuilder.Entity("ClinicManagement.Models.BloodGroup", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -139,7 +143,7 @@ namespace ClinicManagement.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("BoolGroups");
+                    b.ToTable("BloodGroups");
                 });
 
             modelBuilder.Entity("ClinicManagement.Models.Category", b =>
@@ -259,6 +263,10 @@ namespace ClinicManagement.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
 
+                    b.Property<string>("Description")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(20)
@@ -339,7 +347,7 @@ namespace ClinicManagement.Migrations
                     b.Property<decimal?>("OldUnitPrice")
                         .HasColumnType("smallmoney");
 
-                    b.Property<int>("Quantity")
+                    b.Property<int?>("Quantity")
                         .HasColumnType("int");
 
                     b.Property<decimal?>("SellPrice")
@@ -352,10 +360,10 @@ namespace ClinicManagement.Migrations
                         .HasColumnType("smallmoney");
 
                     b.Property<string>("UserID")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("UserIDModify")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("ID");
 
@@ -368,6 +376,10 @@ namespace ClinicManagement.Migrations
                     b.HasIndex("ManufactureId");
 
                     b.HasIndex("UnitID");
+
+                    b.HasIndex("UserID");
+
+                    b.HasIndex("UserIDModify");
 
                     b.ToTable("Medicines");
                 });
@@ -762,7 +774,7 @@ namespace ClinicManagement.Migrations
                         .WithMany()
                         .HasForeignKey("AddressID");
 
-                    b.HasOne("ClinicManagement.Models.BoolGroup", "boolGroup")
+                    b.HasOne("ClinicManagement.Models.BloodGroup", "boolGroup")
                         .WithMany()
                         .HasForeignKey("BloodGroupID");
 
@@ -791,11 +803,23 @@ namespace ClinicManagement.Migrations
                         .WithMany()
                         .HasForeignKey("UnitID");
 
+                    b.HasOne("ClinicManagement.Models.AppUser", "UserCreate")
+                        .WithMany()
+                        .HasForeignKey("UserID");
+
+                    b.HasOne("ClinicManagement.Models.AppUser", "UserModify")
+                        .WithMany()
+                        .HasForeignKey("UserIDModify");
+
                     b.Navigation("Category");
 
                     b.Navigation("Manufacture");
 
                     b.Navigation("Units");
+
+                    b.Navigation("UserCreate");
+
+                    b.Navigation("UserModify");
                 });
 
             modelBuilder.Entity("ClinicManagement.Models.MedicinesCategory", b =>
@@ -842,7 +866,7 @@ namespace ClinicManagement.Migrations
                         .WithMany()
                         .HasForeignKey("AddressID");
 
-                    b.HasOne("ClinicManagement.Models.BoolGroup", "boolGroup")
+                    b.HasOne("ClinicManagement.Models.BloodGroup", "boolGroup")
                         .WithMany()
                         .HasForeignKey("BloodGroupID");
 

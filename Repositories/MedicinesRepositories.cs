@@ -94,12 +94,47 @@ namespace ClinicManagement.Repositories
                 else
                     medicines = medicines.OrderByDescending(n => n.Name).ToList();
             }
+            else if(SortProperty.ToLower()=="code")
+            {
+                if (sortOrder == SortOrder.Ascending)
+                    medicines = medicines.OrderBy(d => d.Code).ToList();
+                else
+                    medicines = medicines.OrderByDescending(d => d.Code).ToList();
+            }
             else if(SortProperty.ToLower()=="Category")
             {
                 if (sortOrder == SortOrder.Ascending)
                     medicines = medicines.OrderBy(d => d.Category.Name).ToList();
                 else
                     medicines = medicines.OrderByDescending(d => d.Category.Name).ToList();
+            }
+            else if(SortProperty.ToLower()=="unitprice")
+            {
+                if (sortOrder == SortOrder.Ascending)
+                    medicines = medicines.OrderBy(d => d.UnitPrice).ToList();
+                else
+                    medicines = medicines.OrderByDescending(d => d.UnitPrice).ToList();
+            }
+            else if(SortProperty.ToLower()=="sellprice")
+            {
+                if (sortOrder == SortOrder.Ascending)
+                    medicines = medicines.OrderBy(d => d.SellPrice).ToList();
+                else
+                    medicines = medicines.OrderByDescending(d => d.SellPrice).ToList();
+            }
+             else if(SortProperty.ToLower()=="quantity")
+            {
+                if (sortOrder == SortOrder.Ascending)
+                    medicines = medicines.OrderBy(d => d.Quantity).ToList();
+                else
+                    medicines = medicines.OrderByDescending(d => d.Quantity).ToList();
+            }
+             else if(SortProperty.ToLower()=="expirydate")
+            {
+                if (sortOrder == SortOrder.Ascending)
+                    medicines = medicines.OrderBy(d => d.ExpiryDate).ToList();
+                else
+                    medicines = medicines.OrderByDescending(d => d.ExpiryDate).ToList();
             }
             else
             {
@@ -112,9 +147,9 @@ namespace ClinicManagement.Repositories
             return medicines;
         }
 
-        public bool IsMedicinesNameExits(string name)
+        public bool IsMedicinesIdExits(int Id)
         {
-            bool result= _context.Medicines.Any(c=>c.Name==name);
+            bool result= _context.Medicines.Any(c=>c.ID==Id);
             return result;
         }
 
@@ -123,7 +158,7 @@ namespace ClinicManagement.Repositories
             bool result= _context.Medicines.Any(c=>c.Name==name && c.ID==id);
             return result;       
         }
-        public Medicines GetMedicines(int? id)
+        public async Task<Medicines> GetMedicines(int? id)
         {
             // Category category=_context.Categories.Where(c=>c.ID==id).FirstOrDefault();
             //  var kq = _context.Medicines
@@ -132,7 +167,7 @@ namespace ClinicManagement.Repositories
             //   Category  category=kq.ToList()            
             //                 .Where(c=>c.ID==id)
             //                 .FirstOrDefault();        
-            Medicines medicines=_context.Medicines.Where(c=>c.ID==id).FirstOrDefault();    
+            Medicines medicines=await _context.Medicines.Where(c=>c.ID==id).FirstOrDefaultAsync();    
             return medicines;
         }
 

@@ -21,9 +21,8 @@ namespace ClinicManagement.Menu {
         
             Items.Add(new SidebarItem() { 
                     Type = SidebarItemType.NavItem,
-                    Controller = "DbManage",
+                    Controller = "Patient",
                     Action = "Index", 
-                    Area = "Database",
                     Title = "thông tin Bệnh nhân",
                     AwesomeIcon = "fas fa-user-injured"
                 });
@@ -86,30 +85,27 @@ namespace ClinicManagement.Menu {
                 
                 Items.Add(new SidebarItem() { 
                     Type = SidebarItemType.NavItem,
-                    Title = "Quản lý bài viết",
-                    AwesomeIcon = "far fa-folder",
-                    collapseID = "blog",
+                    Title = "Cấu hình chung",
+                    AwesomeIcon = "fas fa-sitemap",
+                    collapseID = "config",
                     Items = new List<SidebarItem>() {
                         new SidebarItem() { 
                                 Type = SidebarItemType.NavItem,
-                                Controller = "Category",
+                                Controller = "BloodGroup",
                                 Action = "Index", 
-                                Area = "Blog",
-                                Title = "Các chuyên mục"                        
+                                Title = "Nhóm máu"                        
                         },
                          new SidebarItem() { 
                                 Type = SidebarItemType.NavItem,
-                                Controller = "Category",
-                                Action = "Create", 
-                                Area = "Blog",
-                                Title = "Tạo chuyên mục"                        
+                                Controller = "Gender",
+                                Action = "Index", 
+                                Title = "Giới tính"                        
                         },   
                         new SidebarItem() { 
                                 Type = SidebarItemType.NavItem,
-                                Controller = "Post",
+                                Controller = "ClinicInfo",
                                 Action = "Index", 
-                                Area = "Blog",
-                                Title = "Các bài viết"                        
+                                Title = "Thông tin phòng khám"                        
                         }, 
                         new SidebarItem() { 
                                 Type = SidebarItemType.NavItem,

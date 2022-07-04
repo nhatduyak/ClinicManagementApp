@@ -31,12 +31,18 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Description)
         </dd>
+       <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CategoryId)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Category.Name)
+        </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Units)
+            @Html.DisplayNameFor(model => model.UnitID)
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Units.Name)
-        </dd class>
+        </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.UnitPrice)
         </dt>
@@ -89,13 +95,13 @@
             @Html.DisplayNameFor(model => model.UserID)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.UserID)
+            @Html.DisplayFor(model => model.UserCreate.UserName)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.UserIDModify)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.UserIDModify)
+            @Html.DisplayFor(model => model.UserModify.UserName)
         </dd>
     </dl>
     
