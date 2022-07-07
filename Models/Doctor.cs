@@ -35,12 +35,14 @@ namespace ClinicManagement.Models
         [Display(Name ="Ngày Đăng ký")]
         [DataType(DataType.Date)]
         public DateTime Registed_Date { get; set; }=DateTime.Now;
+       
+        [Display(Name ="Giới tính")]
 
         public int? GenderID { get; set; }
         [ForeignKey("GenderID")]
         public virtual Gender gender{set;get;}
 
-
+        [Display(Name ="Nhóm máu")]
          public int? BloodGroupID { get; set; }
         [ForeignKey("BloodGroupID")]
         public virtual BloodGroup boolGroup{set;get;}
@@ -53,6 +55,14 @@ namespace ClinicManagement.Models
         public bool Doctor_Status{get;set;}
 
         public string ImatePath{get;set;}
+
+        [Display(Name ="Tên bác sĩ")]
+
+        [NotMapped]
+        public string FullName 
+        {
+            get { return LName + " " +FName ;}
+        }
 
     }
 }

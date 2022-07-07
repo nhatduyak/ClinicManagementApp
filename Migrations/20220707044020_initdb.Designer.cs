@@ -7,26 +7,30 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
+#nullable disable
+
 namespace ClinicManagement.Migrations
 {
     [DbContext(typeof(ClinicManagementDbContext))]
-    [Migration("20220629042522_updatemanufacture")]
-    partial class updatemanufacture
+    [Migration("20220707044020_initdb")]
+    partial class initdb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.17")
-                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                .HasAnnotation("ProductVersion", "6.0.6")
+                .HasAnnotation("Relational:MaxIdentifierLength", 128);
+
+            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
             modelBuilder.Entity("ClinicManagement.Models.Address", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
 
                     b.Property<string>("City")
                         .HasMaxLength(60)
@@ -119,15 +123,20 @@ namespace ClinicManagement.Migrations
                         .HasDatabaseName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
-            modelBuilder.Entity("ClinicManagement.Models.BoolGroup", b =>
+            modelBuilder.Entity("ClinicManagement.Models.BloodGroup", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -136,15 +145,16 @@ namespace ClinicManagement.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("BoolGroups");
+                    b.ToTable("BloodGroups");
                 });
 
             modelBuilder.Entity("ClinicManagement.Models.Category", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
 
                     b.Property<string>("Descriptions")
                         .HasColumnType("nvarchar(max)");
@@ -168,8 +178,9 @@ namespace ClinicManagement.Migrations
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
 
                     b.Property<string>("Address")
                         .HasMaxLength(60)
@@ -194,8 +205,9 @@ namespace ClinicManagement.Migrations
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
 
                     b.Property<int?>("AddressID")
                         .HasColumnType("int");
@@ -249,8 +261,13 @@ namespace ClinicManagement.Migrations
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -266,8 +283,9 @@ namespace ClinicManagement.Migrations
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
 
                     b.Property<string>("Address")
                         .HasMaxLength(255)
@@ -294,8 +312,12 @@ namespace ClinicManagement.Migrations
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
+
+                    b.Property<int?>("CategoryId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Code")
                         .HasColumnType("nvarchar(450)");
@@ -313,42 +335,53 @@ namespace ClinicManagement.Migrations
                     b.Property<DateTime?>("ExpiryDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<int?>("ManufactureId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<decimal?>("OldSellPrice")
-                        .HasColumnType("smallmoney");
+                        .HasColumnType("money");
 
                     b.Property<decimal?>("OldUnitPrice")
-                        .HasColumnType("smallmoney");
+                        .HasColumnType("money");
 
-                    b.Property<int>("Quantity")
+                    b.Property<int?>("Quantity")
                         .HasColumnType("int");
 
                     b.Property<decimal?>("SellPrice")
-                        .HasColumnType("smallmoney");
+                        .HasColumnType("money");
 
                     b.Property<int?>("UnitID")
                         .HasColumnType("int");
 
                     b.Property<decimal?>("UnitPrice")
-                        .HasColumnType("smallmoney");
+                        .HasColumnType("money");
 
                     b.Property<string>("UserID")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("UserIDModify")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("ID");
+
+                    b.HasIndex("CategoryId");
 
                     b.HasIndex("Code")
                         .IsUnique()
                         .HasFilter("[Code] IS NOT NULL");
 
+                    b.HasIndex("ManufactureId");
+
                     b.HasIndex("UnitID");
+
+                    b.HasIndex("UserID");
+
+                    b.HasIndex("UserIDModify");
 
                     b.ToTable("Medicines");
                 });
@@ -387,8 +420,9 @@ namespace ClinicManagement.Migrations
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
 
                     b.Property<int?>("AddressID")
                         .HasColumnType("int");
@@ -436,8 +470,9 @@ namespace ClinicManagement.Migrations
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
 
                     b.Property<int>("MedicinesID")
                         .HasColumnType("int");
@@ -449,7 +484,7 @@ namespace ClinicManagement.Migrations
                         .HasColumnType("int");
 
                     b.Property<decimal?>("SellPrice")
-                        .HasColumnType("smallmoney");
+                        .HasColumnType("money");
 
                     b.HasKey("ID");
 
@@ -464,8 +499,9 @@ namespace ClinicManagement.Migrations
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
 
                     b.Property<string>("Code")
                         .HasColumnType("nvarchar(max)");
@@ -477,7 +513,7 @@ namespace ClinicManagement.Migrations
                         .HasColumnType("int");
 
                     b.Property<decimal?>("Total")
-                        .HasColumnType("smallmoney");
+                        .HasColumnType("money");
 
                     b.HasKey("ID");
 
@@ -486,12 +522,16 @@ namespace ClinicManagement.Migrations
                     b.ToTable("PaymentHeaders");
                 });
 
-            modelBuilder.Entity("ClinicManagement.Models.PrescriptionsDetail", b =>
+            modelBuilder.Entity("ClinicManagement.Models.PrescriptionDetail", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
+
+                    b.Property<int>("CountNum")
+                        .HasColumnType("int");
 
                     b.Property<int>("MedicinesID")
                         .HasColumnType("int");
@@ -499,7 +539,7 @@ namespace ClinicManagement.Migrations
                     b.Property<int>("No_of_day")
                         .HasColumnType("int");
 
-                    b.Property<int?>("PrescriptionsID")
+                    b.Property<int>("PrescriptionsID")
                         .HasColumnType("int");
 
                     b.Property<string>("When_To_Take")
@@ -507,9 +547,6 @@ namespace ClinicManagement.Migrations
 
                     b.Property<bool>("is_Before_Meal")
                         .HasColumnType("bit");
-
-                    b.Property<int>("prescriptionsID")
-                        .HasColumnType("int");
 
                     b.HasKey("ID");
 
@@ -520,12 +557,56 @@ namespace ClinicManagement.Migrations
                     b.ToTable("prescriptionsDetails");
                 });
 
+            modelBuilder.Entity("ClinicManagement.Models.prescriptions", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
+
+                    b.Property<DateTime?>("DateCreate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("DoctorID")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("NextVisit")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Note")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<int>("PatientID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("advice")
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<string>("code")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("isdeleted")
+                        .HasColumnType("bit");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("DoctorID");
+
+                    b.HasIndex("PatientID");
+
+                    b.ToTable("Prescriptions");
+                });
+
             modelBuilder.Entity("ClinicManagement.Models.Unit", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
 
                     b.Property<DateTime>("DateCreate")
                         .HasColumnType("datetime2");
@@ -542,42 +623,6 @@ namespace ClinicManagement.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("Units");
-                });
-
-            modelBuilder.Entity("ClinicManagement.Models.prescriptions", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime?>("DateCreate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("DoctorID")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("NextVisit")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Note")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<int>("PatientID")
-                        .HasColumnType("int");
-
-                    b.Property<string>("advice")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("DoctorID");
-
-                    b.HasIndex("PatientID");
-
-                    b.ToTable("Prescriptions");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -604,15 +649,16 @@ namespace ClinicManagement.Migrations
                         .HasDatabaseName("RoleNameIndex")
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
-                    b.ToTable("Roles");
+                    b.ToTable("Roles", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("ClaimType")
                         .HasColumnType("nvarchar(max)");
@@ -628,15 +674,16 @@ namespace ClinicManagement.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("RoleClaims");
+                    b.ToTable("RoleClaims", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("ClaimType")
                         .HasColumnType("nvarchar(max)");
@@ -652,7 +699,7 @@ namespace ClinicManagement.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserClaims");
+                    b.ToTable("UserClaims", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
@@ -674,7 +721,7 @@ namespace ClinicManagement.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserLogins");
+                    b.ToTable("UserLogins", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
@@ -689,7 +736,7 @@ namespace ClinicManagement.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("UserRoles");
+                    b.ToTable("UserRoles", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -708,7 +755,7 @@ namespace ClinicManagement.Migrations
 
                     b.HasKey("UserId", "LoginProvider", "Name");
 
-                    b.ToTable("UserTokens");
+                    b.ToTable("UserTokens", (string)null);
                 });
 
             modelBuilder.Entity("ClinicManagement.Models.AppUser", b =>
@@ -735,7 +782,7 @@ namespace ClinicManagement.Migrations
                         .WithMany()
                         .HasForeignKey("AddressID");
 
-                    b.HasOne("ClinicManagement.Models.BoolGroup", "boolGroup")
+                    b.HasOne("ClinicManagement.Models.BloodGroup", "boolGroup")
                         .WithMany()
                         .HasForeignKey("BloodGroupID");
 
@@ -752,11 +799,35 @@ namespace ClinicManagement.Migrations
 
             modelBuilder.Entity("ClinicManagement.Models.Medicines", b =>
                 {
+                    b.HasOne("ClinicManagement.Models.Category", "Category")
+                        .WithMany()
+                        .HasForeignKey("CategoryId");
+
+                    b.HasOne("ClinicManagement.Models.Manufacture", "Manufacture")
+                        .WithMany()
+                        .HasForeignKey("ManufactureId");
+
                     b.HasOne("ClinicManagement.Models.Unit", "Units")
                         .WithMany()
                         .HasForeignKey("UnitID");
 
+                    b.HasOne("ClinicManagement.Models.AppUser", "UserCreate")
+                        .WithMany()
+                        .HasForeignKey("UserID");
+
+                    b.HasOne("ClinicManagement.Models.AppUser", "UserModify")
+                        .WithMany()
+                        .HasForeignKey("UserIDModify");
+
+                    b.Navigation("Category");
+
+                    b.Navigation("Manufacture");
+
                     b.Navigation("Units");
+
+                    b.Navigation("UserCreate");
+
+                    b.Navigation("UserModify");
                 });
 
             modelBuilder.Entity("ClinicManagement.Models.MedicinesCategory", b =>
@@ -792,9 +863,9 @@ namespace ClinicManagement.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("medicines");
-
                     b.Navigation("PaymentHeader");
+
+                    b.Navigation("medicines");
                 });
 
             modelBuilder.Entity("ClinicManagement.Models.Patient", b =>
@@ -803,7 +874,7 @@ namespace ClinicManagement.Migrations
                         .WithMany()
                         .HasForeignKey("AddressID");
 
-                    b.HasOne("ClinicManagement.Models.BoolGroup", "boolGroup")
+                    b.HasOne("ClinicManagement.Models.BloodGroup", "boolGroup")
                         .WithMany()
                         .HasForeignKey("BloodGroupID");
 
@@ -848,7 +919,7 @@ namespace ClinicManagement.Migrations
                     b.Navigation("Patient");
                 });
 
-            modelBuilder.Entity("ClinicManagement.Models.PrescriptionsDetail", b =>
+            modelBuilder.Entity("ClinicManagement.Models.PrescriptionDetail", b =>
                 {
                     b.HasOne("ClinicManagement.Models.Medicines", "Medicines")
                         .WithMany()
@@ -856,22 +927,22 @@ namespace ClinicManagement.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ClinicManagement.Models.prescriptions", "prescriptionsmaster")
+                    b.HasOne("ClinicManagement.Models.prescriptions", "Prescriptions")
                         .WithMany("PrescriptionsDetail")
-                        .HasForeignKey("PrescriptionsID");
+                        .HasForeignKey("PrescriptionsID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Medicines");
 
-                    b.Navigation("prescriptionsmaster");
+                    b.Navigation("Prescriptions");
                 });
 
             modelBuilder.Entity("ClinicManagement.Models.prescriptions", b =>
                 {
                     b.HasOne("ClinicManagement.Models.Doctor", "Doctor")
                         .WithMany()
-                        .HasForeignKey("DoctorID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("DoctorID");
 
                     b.HasOne("ClinicManagement.Models.Patient", "Patient")
                         .WithMany()

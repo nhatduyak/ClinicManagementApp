@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ClinicManagement.Areas.Database.Controllers
 {
-     [Area("Database")]
+    [Area("Database")]
     [Route("/database-manage/[action]")]
     public class DbManageController : Controller
     {
@@ -95,7 +95,7 @@ namespace ClinicManagement.Areas.Database.Controllers
                 await _userManager.AddToRoleAsync(useradmin, RoleName.Administrator);
 
                 await _signinmanager.SignInAsync(useradmin,false);
-                return RedirectToAction(nameof(SeedDataAsync));
+                // return RedirectToAction(nameof(SeedDataAsync));
                 
             }
             else

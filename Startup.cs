@@ -38,6 +38,7 @@ namespace ClinicManagement
             services.AddDbContext<ClinicManagementDbContext>(options=>{
                 options.UseLazyLoadingProxies()
                         .UseSqlServer(Configuration.GetConnectionString("AppDbContext"));
+                        // .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
             });
 
               // Dang ky Identity
@@ -102,12 +103,14 @@ services.AddOptions();
                 services.AddScoped<ICategory, CategoryRepository>();      
                 services.AddScoped<IManufacture, ManufactureRepository>(); 
                 services.AddScoped<IMedicines, MedicinesRepositories>();                    
-         services.AddScoped<IAddress, AddressRepository>();     
-         services.AddScoped<IBloodGroup, BoolGroupRepository>();     
-         services.AddScoped<IGender, GenderRepository>();     
-         services.AddScoped<IPatient, PatientRepository>();     
-         services.AddScoped<IDoctor, DoctorRepository>();     
-         services.AddScoped<IClinicInfo, ClinicInfoRemository>();     
+                services.AddScoped<IAddress, AddressRepository>();     
+                services.AddScoped<IBloodGroup, BoolGroupRepository>();     
+                services.AddScoped<IGender, GenderRepository>();     
+                services.AddScoped<IPatient, PatientRepository>();     
+                services.AddScoped<IDoctor, DoctorRepository>();     
+                services.AddScoped<IClinicInfo, ClinicInfoRemository>(); 
+                services.AddTransient<Iprescriptions, PrescriptionsRepositories>(); 
+                services.AddTransient<IPrescriptionDetail, PrescriptionDetailRepository>();     
 
         }
 

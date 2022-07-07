@@ -28,17 +28,15 @@ namespace ClinicManagement.Menu {
                 });
             Items.Add(new SidebarItem() { 
                     Type = SidebarItemType.NavItem,
-                    Controller = "Contact",
+                    Controller = "Doctor",
                     Action = "Index", 
-                    Area = "Contact",
                     Title = "Thông tin Bác sĩ",
                     AwesomeIcon = "far fa-address-card"
                 });
                    Items.Add(new SidebarItem() { 
                     Type = SidebarItemType.NavItem,
-                    Controller = "Contact",
+                    Controller = "Prescriptions",
                     Action = "Index", 
-                    Area = "Contact",
                     Title = "Quản lý đơn thuốc",
                     AwesomeIcon = "fas fa-file-medical-alt"
                 });

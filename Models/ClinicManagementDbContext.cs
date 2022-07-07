@@ -44,7 +44,10 @@ namespace ClinicManagement.Models
                     enrity.HasIndex(c=>c.Code)
                                     .IsUnique();
                 });
-
+                //  builder.Entity<PrescriptionDetail>(entity=>
+                // {
+                //     entity.HasKey(c=>new {c.ID,c.PrescriptionsID});
+                // });
              
         }
         }
@@ -74,7 +77,7 @@ namespace ClinicManagement.Models
         
         public DbSet<PaymentDetail> paymentDetails{get;set;}
 
-        public DbSet<PrescriptionsDetail> prescriptionsDetails{get;set;}
+        public DbSet<PrescriptionDetail> prescriptionsDetails{get;set;}
 
         public DbSet<prescriptions> Prescriptions{get;set;}
 

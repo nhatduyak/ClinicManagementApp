@@ -85,7 +85,7 @@ namespace ClinicManagement.Controllers
 
             Patient patient = new Patient();
             //patient.address=new Address();
-             PatientAddress patientdata=new PatientAddress{Patient=patient};
+            PatientAddress patientdata=new PatientAddress{Patient=patient};
             return View(patientdata);
         }
 
@@ -103,7 +103,7 @@ namespace ClinicManagement.Controllers
                     if (patientAddress.Patient.BloodGroupID == -1) patientAddress.Patient.BloodGroupID = null;
                     //if (patient.address?.Street == string.Empty&&patient.address?.City==string.Empty) patient.AddressID = null;
                     Console.WriteLine($"ten duong {patientAddress.Street}" +"city "+ $"{patientAddress.city}");
-                     if(patientAddress.Street!=string.Empty||patientAddress.city!=string.Empty)
+                     if(!string.IsNullOrEmpty(patientAddress.Street)||!string.IsNullOrEmpty(patientAddress.city))
                     {
                         Address addr=new Address(){
                             Street=patientAddress.Street,
@@ -163,7 +163,6 @@ namespace ClinicManagement.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Edit(int id, [Bind("Patient,Street,city,province,Post_Code")]PatientAddress patientAddress)
         {
-            Console.WriteLine($"start ID {id} - {patientAddress.Patient.ID}");
            
             if (ModelState.IsValid)
             {
@@ -174,11 +173,11 @@ namespace ClinicManagement.Controllers
                     {
                         return NotFound();
                     }
-                    Console.WriteLine($"patient {id} - {patientAddress.Patient.ID}");
+
                      patientAddress.Patient.Registed_Date=DateTime.Now;
                     if (patientAddress.Patient.GenderID == -1) patientAddress.Patient.GenderID = null;
                     if (patientAddress.Patient.BloodGroupID == -1) patientAddress.Patient.BloodGroupID = null;
-
+                    Console.WriteLine($"gia tri  id {patientAddress.Patient.AddressID} street {patientAddress.Street} string {!string.IsNullOrEmpty(patientAddress.Street)} city {patientAddress.city} {!string.IsNullOrEmpty(patientAddress.city)}");
                     if(patientAddress.Patient.AddressID==null && (!string.IsNullOrEmpty(patientAddress.Street)||!string.IsNullOrEmpty(patientAddress.city)))
                     {
                         Address addr = new Address(){Street=patientAddress.Street,
@@ -191,7 +190,7 @@ namespace ClinicManagement.Controllers
                     }else if(patientAddress.Patient.AddressID!=null)
                     {
                         Console.WriteLine($"Edit address {patientAddress.Street}");
-                        Address addr= patientAddress.Patient.address;
+                        Address addr= _address.GetAddress(patientAddress.Patient.AddressID);
                         addr.Street=patientAddress.Street;
                         addr.City=patientAddress.city;
                         addr.Province=patientAddress.province;
@@ -201,7 +200,6 @@ namespace ClinicManagement.Controllers
 
 
                  
-                    Console.WriteLine($"nhom mau {patientAddress.Patient.BloodGroupID}");
                      _patientRepo.Edit(patientAddress.Patient);
 
                 }
@@ -212,10 +210,8 @@ namespace ClinicManagement.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            Console.WriteLine($"gender {patientAddress.Patient.boolGroup.Name}");
               ViewData["GenderID"] = new SelectList(_patientRepo.GetGenderList(), "ID", "Name");
             ViewData["BloodGroupID"] = new SelectList(_patientRepo.GetBloodGroupList(), "ID", "Name");
-            Console.WriteLine($"patient {patientAddress.Patient.FName} {patientAddress.city} {patientAddress.Street}");
             return View(patientAddress);
         }
 
@@ -244,8 +240,11 @@ namespace ClinicManagement.Controllers
             var patient = _patientRepo.GetPatient(id);
             if(patient==null)
                 return NotFound();
-
+        
+            Address address=patient.address;
             patient=_patientRepo.Delete(patient);
+            if(address!=null)
+                _address.Delete(address);
             return RedirectToAction(nameof(Index));
         }
     }

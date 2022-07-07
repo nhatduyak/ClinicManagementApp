@@ -84,7 +84,7 @@ namespace ClinicManagement.Repositories
         }             
 
    
-        public Doctor GetDoctor(int id)
+        public Doctor GetDoctor(int? id)
         {
               Doctor doctor = _context.Doctors.Where(u => u.ID == id).FirstOrDefault();
                 return doctor;            
@@ -100,6 +100,26 @@ namespace ClinicManagement.Repositories
         {
         bool result= _context.Doctors.Any(c=>c.FName==name && c.ID==Id);
             return result;        
+        }
+        
+
+        public List<Gender> GetGenderList()
+        {
+            var gender = _context.Genders.ToList();
+            gender.Insert(0,new Gender{ID=-1,Name="Không rõ giớ tính"});
+            return gender;              
+        }
+
+        public List<BloodGroup> GetBloodGroupList()
+        {
+            var blood = _context.BloodGroups.ToList();
+            blood.Insert(0,new BloodGroup{ID=-1,Name="Không rõ nhóm máu"});
+            return blood;       
+        }
+         public Address GetAddress(int? id)
+        {
+            var addr=_context.addresses.Where(c=>c.ID==id).FirstOrDefault();
+            return addr;
         }
 
     

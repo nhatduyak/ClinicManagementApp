@@ -18,7 +18,7 @@ namespace ClinicManagement.Models
         public DateTime DateCreate{get;set;}
 
          [Display(Name ="Tổng tiền")]
-        [Column(TypeName ="smallmoney")]
+        [Column(TypeName ="money")]
         [DisplayFormat(DataFormatString ="{0:0.000}",ApplyFormatInEditMode =true)]
         public decimal? Total{get;set;}    
 

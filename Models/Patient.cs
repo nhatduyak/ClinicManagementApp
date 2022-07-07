@@ -36,11 +36,12 @@ namespace ClinicManagement.Models
         [DataType(DataType.Date)]
         public DateTime Registed_Date { get; set; }=DateTime.Now;
 
+         [Display(Name ="Giới tính")]
         public int? GenderID { get; set; }
         [ForeignKey("GenderID")]
         public virtual Gender gender{set;get;}
 
-
+        [Display(Name ="Nhóm máu")]
          public int? BloodGroupID { get; set; }
         [ForeignKey("BloodGroupID")]
         public virtual BloodGroup boolGroup{set;get;}
@@ -48,6 +49,14 @@ namespace ClinicManagement.Models
         public int? AddressID { get; set; }
         [ForeignKey("AddressID")]
         public virtual Address address{set;get;}
+
+        [Display(Name ="Tên bệnh nhân")]
+
+        [NotMapped]
+        public string FullName 
+        {
+            get { return LName + " " + FName ;}
+        }
     }
 
 

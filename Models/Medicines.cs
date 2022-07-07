@@ -40,7 +40,7 @@ namespace ClinicManagement.Models
         public virtual Category Category{get;set;}
   
         [Display(Name ="Đơn giá")]
-        [Column(TypeName ="smallmoney")]
+        [Column(TypeName ="money")]
         // [DisplayFormat(DataFormatString ="{0:0.000}",ApplyFormatInEditMode =true)]
         [DisplayFormat(DataFormatString ="{0:c}",ApplyFormatInEditMode =true)]
 
@@ -48,7 +48,7 @@ namespace ClinicManagement.Models
         public decimal? UnitPrice{get;set;}
 
         [Display(Name ="Giá bán")]
-        [Column(TypeName ="smallmoney")]
+        [Column(TypeName ="money")]
         // [DisplayFormat(DataFormatString ="{0:0.000}",ApplyFormatInEditMode =true)]
         [DisplayFormat(DataFormatString ="{0:c}",ApplyFormatInEditMode =true)]
 
@@ -63,12 +63,12 @@ namespace ClinicManagement.Models
 
           [Display(Name ="Đơn giá cũ")]
         [DisplayFormat(DataFormatString ="{0:c}",ApplyFormatInEditMode =true)]
-        [Column(TypeName ="smallmoney")]
+        [Column(TypeName ="money")]
         public decimal? OldUnitPrice{get;set;}
 
       
         [Display(Name ="Giá bán cũ")]
-        [Column(TypeName ="smallmoney")]
+        [Column(TypeName ="money")]
         [DisplayFormat(DataFormatString ="{0:c}",ApplyFormatInEditMode =true)]
         public decimal? OldSellPrice{get;set;}    
 
