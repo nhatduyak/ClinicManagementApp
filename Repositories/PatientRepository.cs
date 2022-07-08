@@ -56,9 +56,9 @@ namespace ClinicManagement.Repositories
             else
             {
                 if (sortOrder == SortOrder.Ascending)
-                    Patient = Patient.OrderBy(d => d.LName).ToList();
+                    Patient = Patient.OrderByDescending(d => d.Registed_Date).ToList();
                 else
-                    Patient = Patient.OrderByDescending(d => d.LName).ToList();
+                    Patient = Patient.OrderBy(d => d.Registed_Date).ToList();
             }
           
 

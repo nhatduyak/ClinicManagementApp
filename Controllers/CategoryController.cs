@@ -183,17 +183,20 @@ namespace ClinicManagement.Controllers
                                 return checkCateIds(cate.CategoryChildren.ToList());
                           
                         }
-                        return false;
+                        return true;
                     };
                 // End Func 
                 checkCateIds(childCates.ToList()); 
                 }
+
+                
 
                 int currentPage = 1;
                 if (TempData["CurrentPage"] != null)
                     currentPage = (int)TempData["CurrentPage"];
                 if (ModelState.IsValid&&CanUpdate)
                 {
+                    Console.WriteLine($"canupdate {CanUpdate}");
                     if (category.ParentCategoryID == -1) category.ParentCategoryID = null;
                     category = _category.Edit(category);
                     StatusMessage = category.Name + " Danh mục lưu thành công";
@@ -203,7 +206,9 @@ namespace ClinicManagement.Controllers
             }
             catch (Exception ex)
             {
+                
                 errMessage = errMessage + " " + ex.Message;
+                Console.WriteLine(errMessage);
             }
 
            

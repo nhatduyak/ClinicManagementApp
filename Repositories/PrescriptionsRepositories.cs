@@ -79,9 +79,9 @@ namespace ClinicManagement.Repositories
             else
             {
                 if (sortOrder == SortOrder.Ascending)
-                    prescriptions = prescriptions.OrderBy(d => d.DateCreate).ToList();
-                else
                     prescriptions = prescriptions.OrderByDescending(d => d.DateCreate).ToList();
+                else
+                    prescriptions = prescriptions.OrderBy(d => d.DateCreate).ToList();
             }
           
 

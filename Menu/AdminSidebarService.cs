@@ -104,13 +104,7 @@ namespace ClinicManagement.Menu {
                                 Action = "Index", 
                                 Title = "Thông tin phòng khám"                        
                         }, 
-                        new SidebarItem() { 
-                                Type = SidebarItemType.NavItem,
-                                Controller = "Post",
-                                Action = "Create", 
-                                Area = "Blog",
-                                Title = "Tạo bài viết"                        
-                        },                                   
+                                            
                     },
                 });
                 Items.Add(new SidebarItem() { Type = SidebarItemType.Divider});

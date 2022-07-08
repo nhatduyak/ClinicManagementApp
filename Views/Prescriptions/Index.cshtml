@@ -104,12 +104,18 @@
             </td>            
             <td>
                 <div class="btn-group">
-                        <a asp-action="Edit" asp-route-id="@item.ID">
+                    <a asp-action="Generate" asp-route-id="@item.ID">
+                            <span class="btn btn-sm btn-outline-danger">
+                                <i class="fas fa-print" aria-hidden="true"></i> 
+                            </span>
+                        </a>
+
+                     <a asp-action="Edit" asp-route-id="@item.ID">
                             <span class="btn btn-sm btn-outline-primary">
                                 <i class="fa fa-edit" aria-hidden="true"></i>
                             </span>
                         </a>
-
+                        
                         <a asp-action="Details" asp-route-id="@item.ID">
                             <span class="btn btn-sm btn-outline-dark">
                                 <i class="fa fa-eye" aria-hidden="true"></i>

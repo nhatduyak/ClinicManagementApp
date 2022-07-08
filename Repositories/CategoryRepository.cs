@@ -33,7 +33,9 @@ namespace ClinicManagement.Repositories
 
         public Category Edit(Category category)
         {
-            _context.Attach(category);
+            //_context.Attach(category);
+            var cate=_context.Categories.Where(p=>p.ID==category.ID).FirstOrDefault();
+            _context.Entry(cate).State=EntityState.Detached;
             _context.Entry(category).State=EntityState.Modified;
             _context.SaveChanges();
             return category;

@@ -41,6 +41,7 @@ namespace ClinicManagement.Controllers
         public IActionResult Index(string sortExpression="", string SearchText = "",int pg=1,int pageSize=10)
         {
             SortModel sortModel=new SortModel();
+            sortModel.AddColumn("Registed_Date");
             sortModel.AddColumn("fname");
             sortModel.AddColumn("lname");
             sortModel.AddColumn("age");

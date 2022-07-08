@@ -8,7 +8,9 @@ using Microsoft.EntityFrameworkCore;
 using ClinicManagement.Models;
 using ClinicManagement.Interfaces;
 using ClinicManagement.Tools;
-
+using System.IO;
+using FastReport;
+using Microsoft.AspNetCore.Hosting;
 
 namespace ClinicManagement.Controllers
 {
@@ -19,24 +21,26 @@ namespace ClinicManagement.Controllers
         private readonly Iprescriptions _prescriptionsRepo;  
         private readonly IPrescriptionDetail _prescriptionsDetailRepo;
 
-
+        public IWebHostEnvironment _env;
         
 
-        public PrescriptionsController(Iprescriptions prescriptionsRepo,IPrescriptionDetail prescriptionsDetailRepo)
+        public PrescriptionsController(Iprescriptions prescriptionsRepo,IPrescriptionDetail prescriptionsDetailRepo,IWebHostEnvironment env)
         {
             //_context = context;
             _prescriptionsRepo=prescriptionsRepo;
             _prescriptionsDetailRepo=prescriptionsDetailRepo;
+            _env=env;
         }
 
         // GET: prescriptions
         public IActionResult Index(string sortExpression="", string SearchText = "",int pg=1,int pageSize=10)
         {
             SortModel sortModel=new SortModel();
+            sortModel.AddColumn("datecreate");
             sortModel.AddColumn("code");
             sortModel.AddColumn("pname");
             sortModel.AddColumn("dname");
-            sortModel.AddColumn("datecreate");
+            
             sortModel.ApplySort(sortExpression);
             ViewData["sortModel"] = sortModel;
 
@@ -195,10 +199,40 @@ namespace ClinicManagement.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-
-        public IActionResult PrintFile()
+        public FileResult Generate(int id)
         {
-            return View();
+            FastReport.Utils.Config.WebMode=true;
+            Report report=new Report(); 
+            string path="wwwroot/Report/Prescriptions.frx";
+            report.Load(path);
+
+            prescriptions prescriptions=_prescriptionsRepo.Getprescriptions(id);
+            List<PrescriptionDetail> details=prescriptions.PrescriptionsDetail;
+
+            report.SetParameterValue("patientname",prescriptions.Patient.FullName);
+            report.SetParameterValue("note",prescriptions.advice);
+
+            report.RegisterData(details,"PrescriptionsRef");
+
+            if(report.Report.Prepare())
+            {
+                FastReport.Export.PdfSimple.PDFSimpleExport pDFSimpleExport=new FastReport.Export.PdfSimple.PDFSimpleExport();
+                pDFSimpleExport.ShowProgress=false;
+                pDFSimpleExport.Subject="Subject report";
+                pDFSimpleExport.Title="Title Report clinic";
+                MemoryStream ms=new MemoryStream();
+                report.Report.Export(pDFSimpleExport,ms);
+                report.Dispose();
+                pDFSimpleExport.Dispose();
+                ms.Position=0;
+                return File(ms,"application/pdf","DonThuoc.pdf");
+            }
+            else
+            {
+                return null;
+            }
+
         }
+       
     }
 }
