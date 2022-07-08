@@ -122,5 +122,16 @@ namespace ClinicManagement.Repositories
             var addr=_context.addresses.Where(c=>c.ID==id).FirstOrDefault();
             return addr;
         }
+
+        public List<prescriptions> GetPrescriptions(int? id)
+        {
+            var result= _context.Prescriptions.Where(p=>p.PatientID==id && p.isdeleted==false).OrderByDescending(d=>d.DateCreate).ToList();
+            return result;
+        }
+
+        public List<Medicines> GetMedicines()
+        {
+            return _context.Medicines.ToList();
+        }
     }
 }

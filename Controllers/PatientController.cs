@@ -67,6 +67,12 @@ namespace ClinicManagement.Controllers
                 return NotFound();
             }
             var patient= _patientRepo.GetPatient(id);
+            List<prescriptions> listprescr=_patientRepo.GetPrescriptions(id);
+            ViewData["prescriptionsList"]=listprescr;
+            Console.WriteLine($"Don thuoc la {listprescr.Count}");
+            ViewData["MedicinesID"]=new SelectList(_patientRepo.GetMedicines(), "ID", "Name");
+            MedicinesWhenToTake whenToTake=new MedicinesWhenToTake();
+            ViewData["When_To_Take"] = new SelectList(whenToTake.GetListMedicinesWhenToTake(), "ID", "Name");
          
             if (patient == null)
             {

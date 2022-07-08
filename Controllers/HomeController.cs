@@ -29,6 +29,25 @@ namespace ClinicManagement.Controllers
             
             return View();
         }
+        // public IActionResult Index(string sortExpression="", string SearchText = "",int pg=1,int pageSize=10)
+        // {
+        //     SortModel sortModel=new SortModel();
+        //     sortModel.AddColumn("fname");
+        //     sortModel.AddColumn("lname");
+        //     sortModel.AddColumn("age");
+        //     sortModel.ApplySort(sortExpression);
+        //     ViewData["sortModel"] = sortModel;
+
+
+        //     ViewBag.SearchText=SearchText;
+        //     PaginatedList<Patient> patients=_patientRepo.GetItems(sortModel.SortedProperty,sortModel.SortedOrder,SearchText,pg,pageSize);
+        //     var pager=new PagerModel(patients.TotalRecords,pg,pageSize);
+        //     pager.SortExpression=sortExpression;
+        //     this.ViewBag.Pager=pager;
+
+        //     TempData["CurrentPage"]=pg;
+        //     return View(patients);
+        // }
 
         public IActionResult Privacy()
         {

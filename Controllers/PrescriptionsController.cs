@@ -194,5 +194,11 @@ namespace ClinicManagement.Controllers
             
             return RedirectToAction(nameof(Index));
         }
+
+
+        public IActionResult PrintFile()
+        {
+            return View();
+        }
     }
 }

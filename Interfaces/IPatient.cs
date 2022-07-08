@@ -15,6 +15,9 @@ namespace ClinicManagement.Interfaces
 
         Patient Delete(Patient patient);
 
+        List<prescriptions> GetPrescriptions(int? id);
+        List<Medicines> GetMedicines();
+
         List<Gender> GetGenderList();
 
         List<BloodGroup> GetBloodGroupList();

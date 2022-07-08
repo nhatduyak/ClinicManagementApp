@@ -73,9 +73,8 @@ namespace ClinicManagement.Menu {
                             });   
             Items.Add(new SidebarItem() { 
                                 Type = SidebarItemType.NavItem,
-                                Controller = "DbManage",
+                                Controller = "",
                                 Action = "Index", 
-                                Area = "Database",
                                 Title = "Lịch sử thuốc",
                                 AwesomeIcon = "fas fa-glasses"
                             });                   

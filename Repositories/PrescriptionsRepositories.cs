@@ -38,12 +38,12 @@ namespace ClinicManagement.Repositories
         public prescriptions Edit(prescriptions prescriptions)
         {
             List<PrescriptionDetail> oldprescrDetail=_context.prescriptionsDetails.Where(p=>p.PrescriptionsID==prescriptions.ID).ToList();
-            Console.WriteLine($"so luong oldprdetail {oldprescrDetail.Count}");
+            //Console.WriteLine($"so luong oldprdetail {oldprescrDetail.Count}");
             _context.prescriptionsDetails.RemoveRange(oldprescrDetail);
             _context.SaveChanges();
 
-            Console.WriteLine($"so luong prdetail {prescriptions.PrescriptionsDetail.Count}");
-            Console.WriteLine($"so luong prdetail true  {prescriptions.PrescriptionsDetail.Where(p=>p.IsDeleted==true).ToList().Count}");
+           // Console.WriteLine($"so luong prdetail {prescriptions.PrescriptionsDetail.Count}");
+          //  Console.WriteLine($"so luong prdetail true  {prescriptions.PrescriptionsDetail.Where(p=>p.IsDeleted==true).ToList().Count}");
             prescriptions.PrescriptionsDetail.RemoveAll(n=>n.IsDeleted==true);
              _context.Attach(prescriptions);
             _context.Entry(prescriptions).State = EntityState.Modified;
