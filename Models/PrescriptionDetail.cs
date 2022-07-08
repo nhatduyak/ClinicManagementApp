@@ -33,6 +33,10 @@ namespace ClinicManagement.Models
         [Display(Name ="Uống Khi nào?")]
         public string When_To_Take{get;set;}
 
+
+      [Display(Name ="Lượng dùng mỗi lần")]
+        public string Dosage{get;set;}
+
         [NotMapped]
         public bool IsDeleted{get;set;}=false;
 

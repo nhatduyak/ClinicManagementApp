@@ -142,5 +142,10 @@ namespace ClinicManagement.Repositories
             var Medicines = _context.Medicines.ToList();
             return Medicines;
         }
+        public ClinicInfo GetClinicInfo()
+        {
+            ClinicInfo info=_context.ClinicInfos.FirstOrDefault();
+            return info;
+        }
     }
 }

@@ -85,6 +85,9 @@
                                 Số Ngày uống
                             </th>
                              <th>
+                                Lượng dùng mỗi lần
+                            </th>
+                             <th>
                                 Thời gian uống
                             </th>
                              <th>
@@ -110,6 +113,10 @@
                                         <input asp-for="@Model.PrescriptionsDetail[i].IsDeleted" type="hidden" class="form-control"/>
                                         <input asp-for="@Model.PrescriptionsDetail[i].No_of_day" class="form-control w-60" />
                                         <span asp-validation-for="@Model.PrescriptionsDetail[i].No_of_day" class="text-danger"></span>
+                                    </td>
+                                    <td>
+                                        <input asp-for="@Model.PrescriptionsDetail[i].Dosage" class="form-control"/>
+                                         <span asp-validation-for="@Model.PrescriptionsDetail[i].Dosage" class="text-danger"></span>
                                     </td>
                                      <td>
                                      <select asp-for="@Model.PrescriptionsDetail[i].When_To_Take" class="form-control" asp-items="ViewBag.When_To_Take"></select>

@@ -34,12 +34,12 @@ namespace ClinicManagement.Models
         [DataType(DataType.Date)]
         public DateTime? NextVisit{get;set;} 
 
-        [Display(Name ="Lời khuyên")]
+        [Display(Name ="Chuẩn đoán")]
         [StringLength(255,ErrorMessage ="{0} phải từ 0 đến {1} ký tự")]
         public string advice { get; set; }
 
 
-         [Display(Name ="Ghi chú")]
+         [Display(Name ="Biểu hiện lâm sàng")]
         [StringLength(200,ErrorMessage ="{0} phải từ 0 đến {1} ký tự")]
         public string Note { get; set; }
 

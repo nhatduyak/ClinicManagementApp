@@ -83,24 +83,24 @@
 </div>
 
             <div class="form-group col-2">
-                <label asp-for="@Model.Street" value="Tên đường" class="control-label"></label>                
+                <label asp-for="@Model.Street" value="Tên đường" class="control-label">Tên đường</label>                
             </div>
             <div class="form-group col-3">
-                <input id="streetid" name="Street" asp-for="@Model.Street" class="form-control" />
+                <input id="streetid" name="Street" asp-for="@Model.Street" tex class="form-control" />
                 <span asp-validation-for="@Model.Street" class="text-danger"></span>
             </div>
 
             <div class="form-group col-2"></div>
 
              <div class="form-group col-2">
-                <label asp-for="@Model.city" value="Thành phố" class="control-label"></label>                
+                <label asp-for="@Model.city" value="Thành phố" class="control-label">Thành phố</label>                
             </div>
             <div class="form-group col-3">
                 <input id="cityid"  name="City" asp-for="@Model.city" class="form-control" />
                 <span asp-validation-for="@Model.city" class="text-danger"></span>
             </div>
             <div class="form-group col-2">
-                <label asp-for="@Model.province" value="Tỉnh Thành" class="control-label"></label>                
+                <label asp-for="@Model.province" value="Tỉnh Thành" class="control-label">Tỉnh Thành</label>                
             </div>
             <div class="form-group col-3">
                 <input id="provinceid" asp-for="@Model.province" class="form-control" />
@@ -110,7 +110,7 @@
             <div class="form-group col-2"></div>
 
              <div class="form-group col-2">
-                <label asp-for="@Model.Post_Code" value="Mã bưu điện" class="control-label"></label>                
+                <label asp-for="@Model.Post_Code" value="Mã bưu điện" class="control-label">Mã bưu điện</label>                
             </div>
             <div class="form-group col-3">
                 <input id="postcodeid" asp-for="@Model.Post_Code"  class="form-control" />

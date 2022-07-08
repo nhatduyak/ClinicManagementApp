@@ -208,11 +208,39 @@ namespace ClinicManagement.Controllers
 
             prescriptions prescriptions=_prescriptionsRepo.Getprescriptions(id);
             List<PrescriptionDetail> details=prescriptions.PrescriptionsDetail;
+            List<ReportPrescriptions> reportPrescriptions=new List<ReportPrescriptions>();
+            MedicinesWhenToTake whenToTake=new MedicinesWhenToTake();
+            List<MedicinesWhenToTake> listwhentotake= whenToTake.GetListMedicinesWhenToTake();
+            foreach(var item in details)
+            {
+                ReportPrescriptions prreport=new ReportPrescriptions();
+                prreport.MedicinesName=item.Medicines.Name;
+                prreport.No_of_day=item.No_of_day.ToString("N0");
+                prreport.Dosage=item.Dosage;
+                prreport.When_To_Take=listwhentotake.Where(p=>p.ID==item.ID).FirstOrDefault().Name;
+                string uongtruocan="";
+                if(item.is_Before_Meal)
+                    {
+                        uongtruocan=" trước khi ăn";
+                    }
+                prreport.uongtruocan=uongtruocan;
+                reportPrescriptions.Add(prreport);
+            }
 
+            ClinicInfo info=_prescriptionsRepo.GetClinicInfo();
+            report.SetParameterValue("clinicname",info?.Name);
+            report.SetParameterValue("clinicphone",info?.Phone);
+            report.SetParameterValue("clinicaddress",info?.Address);
             report.SetParameterValue("patientname",prescriptions.Patient.FullName);
-            report.SetParameterValue("note",prescriptions.advice);
+            report.SetParameterValue("gender",prescriptions.Patient.gender?.Name);
+            report.SetParameterValue("age",prescriptions.Patient?.Age);
+            report.SetParameterValue("nextvisit",prescriptions?.NextVisit);
+            report.SetParameterValue("doctorname",prescriptions.Doctor.FullName);
+            report.SetParameterValue("note",prescriptions.Note);
+            report.SetParameterValue("advice",prescriptions.advice);
+            report.SetParameterValue("code",prescriptions.code);
 
-            report.RegisterData(details,"PrescriptionsRef");
+            report.RegisterData(reportPrescriptions,"PrescriptionsRef");
 
             if(report.Report.Prepare())
             {

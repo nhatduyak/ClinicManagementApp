@@ -25,6 +25,7 @@ namespace ClinicManagement.Interfaces
 
         Patient GetPatient(int? id);
       
+        public ClinicInfo GetClinicInfo();
 
     }
 }
